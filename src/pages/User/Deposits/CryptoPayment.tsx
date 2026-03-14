@@ -4,7 +4,6 @@ import { toast } from "react-fox-toast";
 
 // Hooks, Enums and Utils
 import { useNewTransaction } from "@/services/mutations.service";
-import type { NewTransaction, TransactionCoin, TransactionType } from "@/types";
 import { paymentMeta } from "@/enum"
 import { formatCurrency, isValidTxHashForCoin, type CoinKey } from "@/utils/format";
 
