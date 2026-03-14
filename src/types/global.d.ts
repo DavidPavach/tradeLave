@@ -77,6 +77,17 @@ declare type patchDepositDetails = {
     }
 }
 
+//News
+declare type NewsArticle = {
+    article_id: string;
+    title: string;
+    link: string;
+    description: string;
+    pubDate: string;
+    source_id: string;
+    category?: string[];
+    image_url?: string;
+}
 
 
 // Administration
