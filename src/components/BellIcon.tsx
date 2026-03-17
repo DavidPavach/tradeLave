@@ -9,7 +9,7 @@ import { formatDate } from '@/utils/format';
 import { Badge } from './ui/badge';
 
 //Icons
-import { Clock, Gift, MoneyForbidden, MoneyRecive, Moneys, MoneySend, NotificationBing, Settings, Trash, WalletAdd } from 'iconsax-reactjs';
+import { Clock, DirectInbox, Gift, MoneyForbidden, MoneyRecive, Moneys, MoneySend, NotificationBing, Settings, StatusUp, Trash, WalletAdd } from 'iconsax-reactjs';
 import { AlertTriangle, DollarSign, Info, X } from 'lucide-react';
 import { Button } from './ui/button';
 
@@ -38,6 +38,10 @@ export const BellIcon = () => {
                         return <MoneyForbidden className="size-5 text-destructive" />;
                     case "referral":
                         return <Gift className="size-5 text-pink-500" />;
+                    case "stake":
+                        return <StatusUp className="size-5 text-[#16A34A]" />;
+                    case "roi":
+                        return <DirectInbox className="size-5 text-fuchsia-500" />;
                     default:
                         return <DollarSign className="size-5 text-emerald-500" />;
                 }

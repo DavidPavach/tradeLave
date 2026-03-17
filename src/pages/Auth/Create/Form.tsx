@@ -67,7 +67,7 @@ const Form = ({ ref }: { ref: string | undefined }) => {
                 setTokens(response.data);
                 toast.success(response.data.message || "Your account was created successfully!");
                 startVerification()
-                navigate({ to: '/verification' });
+                navigate({ to: '/kyc' });
                 reset();
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -56,12 +56,7 @@ export default function Form() {
                 setId(response.data.id)
                 toast.success(response.data.message || "Your account was authenticated successfully!");
                 reset();
-                const redirect = response.data.redirect;
-                if (redirect === "dashboard") {
-                    navigate({ to: '/dashboard' });
-                } else {
-                    navigate({ to: `/${redirect}` })
-                }
+                navigate({ to: '/dashboard' });
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {

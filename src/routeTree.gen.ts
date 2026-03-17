@@ -29,7 +29,6 @@ import { Route as DashboardDiscoverRouteImport } from './routes/_dashboard/disco
 import { Route as DashboardDepositRouteImport } from './routes/_dashboard/deposit'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 import { Route as DashboardCoinRouteImport } from './routes/_dashboard/coin'
-import { Route as AuthVerificationRouteImport } from './routes/_auth/verification'
 import { Route as AuthSkipRouteImport } from './routes/_auth/skip'
 import { Route as AuthOperationsRouteImport } from './routes/_auth/operations'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
@@ -142,11 +141,6 @@ const DashboardCoinRoute = DashboardCoinRouteImport.update({
   path: '/coin',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const AuthVerificationRoute = AuthVerificationRouteImport.update({
-  id: '/verification',
-  path: '/verification',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
 const AuthSkipRoute = AuthSkipRouteImport.update({
   id: '/skip',
   path: '/skip',
@@ -239,7 +233,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof AuthLoginRoute
   '/operations': typeof AuthOperationsRoute
   '/skip': typeof AuthSkipRoute
-  '/verification': typeof AuthVerificationRoute
   '/coin': typeof DashboardCoinRoute
   '/dashboard': typeof DashboardDashboardRoute
   '/deposit': typeof DashboardDepositRoute
@@ -273,7 +266,6 @@ export interface FileRoutesByTo {
   '/login': typeof AuthLoginRoute
   '/operations': typeof AuthOperationsRoute
   '/skip': typeof AuthSkipRoute
-  '/verification': typeof AuthVerificationRoute
   '/coin': typeof DashboardCoinRoute
   '/dashboard': typeof DashboardDashboardRoute
   '/deposit': typeof DashboardDepositRoute
@@ -312,7 +304,6 @@ export interface FileRoutesById {
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/operations': typeof AuthOperationsRoute
   '/_auth/skip': typeof AuthSkipRoute
-  '/_auth/verification': typeof AuthVerificationRoute
   '/_dashboard/coin': typeof DashboardCoinRoute
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
   '/_dashboard/deposit': typeof DashboardDepositRoute
@@ -348,7 +339,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/operations'
     | '/skip'
-    | '/verification'
     | '/coin'
     | '/dashboard'
     | '/deposit'
@@ -382,7 +372,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/operations'
     | '/skip'
-    | '/verification'
     | '/coin'
     | '/dashboard'
     | '/deposit'
@@ -420,7 +409,6 @@ export interface FileRouteTypes {
     | '/_auth/login'
     | '/_auth/operations'
     | '/_auth/skip'
-    | '/_auth/verification'
     | '/_dashboard/coin'
     | '/_dashboard/dashboard'
     | '/_dashboard/deposit'
@@ -588,13 +576,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCoinRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/_auth/verification': {
-      id: '/_auth/verification'
-      path: '/verification'
-      fullPath: '/verification'
-      preLoaderRoute: typeof AuthVerificationRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
     '/_auth/skip': {
       id: '/_auth/skip'
       path: '/skip'
@@ -738,7 +719,6 @@ interface AuthRouteRouteChildren {
   AuthLoginRoute: typeof AuthLoginRoute
   AuthOperationsRoute: typeof AuthOperationsRoute
   AuthSkipRoute: typeof AuthSkipRoute
-  AuthVerificationRoute: typeof AuthVerificationRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
@@ -748,7 +728,6 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthOperationsRoute: AuthOperationsRoute,
   AuthSkipRoute: AuthSkipRoute,
-  AuthVerificationRoute: AuthVerificationRoute,
 }
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(

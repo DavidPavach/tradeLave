@@ -134,10 +134,12 @@ const Header = () => {
                     <AvatarImage src={profilePicture || "/user.svg"} alt="default profile" />
                     <AvatarFallback>TL</AvatarFallback>
                 </Avatar>
-                <span className={`absolute -bottom-1 -right-1 flex items-center justify-center size-4 rounded-full border-2 border-background ${status === "pending" ? "bg-amber-500" : status === "accepted" ? "bg-green-500" : "bg-destructive"}`} />
-                <span className="top-12 left-1/2 absolute bg-card opacity-0 group-hover:opacity-100 px-2 py-1 border border-border rounded-md text-[9px] text-green-500 md:text-[10px] xl:text-[11px] first-letter:uppercase whitespace-nowrap transition -translate-x-1/2">
-                    {status}
-                </span>
+                <div className="-right-1 -bottom-1 absolute flex items-center gap-x-1">
+                    <span className={`size-4 rounded-full ${status === "pending" ? "bg-amber-500" : status === "accepted" ? "bg-green-500" : "bg-destructive"}`} />
+                    <span className={`px-2 py-1 border border-border rounded-md ${status === "pending" ? "text-amber-500" : status === "accepted" ? "text-green-500" : "text-destructive"} text-[9px] md:text-[10px] xl:text-[11px] first-letter:uppercase whitespace-nowrap`}>
+                        {status}
+                    </span>
+                </div>
             </a>
             <section className="flex justify-end items-center gap-x-3">
                 <BellIcon />
