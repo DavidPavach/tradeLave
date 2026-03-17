@@ -7,11 +7,11 @@ import { formatDate } from '@/utils/format';
 
 //Components
 import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 
 //Icons
 import { Clock, DirectInbox, Gift, MoneyForbidden, MoneyRecive, Moneys, MoneySend, NotificationBing, Settings, StatusUp, Trash, WalletAdd } from 'iconsax-reactjs';
 import { AlertTriangle, DollarSign, Info, X } from 'lucide-react';
-import { Button } from './ui/button';
 
 
 export const BellIcon = () => {
@@ -22,10 +22,10 @@ export const BellIcon = () => {
 
     const unreadCount = notifications.length;
 
-    const getNotificationIcon = (type: string, subtype?: string) => {
+    const getNotificationIcon = (type: string, subType?: string) => {
         switch (type.toLowerCase()) {
             case "transaction":
-                switch (subtype?.toLowerCase()) {
+                switch (subType?.toLowerCase()) {
                     case "deposit_request":
                         return <WalletAdd className="size-5 text-amber-500" />;
                     case "deposit":
@@ -159,7 +159,7 @@ export const BellIcon = () => {
                                                 <div className={`group relative flex gap-3 border-l-2 px-4 py-4 transition-colors ${styles.wrapper}`}>
                                                     <span className={`absolute left-0 top-0 h-full w-[2px] ${styles.accent}`} />
                                                     <div className="flex justify-center items-center bg-background shadow-sm mt-0.5 border border-border rounded-xl size-10 shrink-0">
-                                                        {getNotificationIcon(n.type, n.subtype)}
+                                                        {getNotificationIcon(n.type, n.subType)}
                                                     </div>
 
                                                     <div className="flex-1 min-w-0">

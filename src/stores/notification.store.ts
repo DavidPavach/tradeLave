@@ -7,7 +7,7 @@ export type Notification = {
   _id: string;
   user: string;
   type: string;
-  subtype: string;
+  subType: string;
   title: string;
   message: string;
   createdAt: Date;
