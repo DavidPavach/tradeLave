@@ -129,12 +129,12 @@ const Header = () => {
 
     return (
         <header className="relative flex justify-between items-center bg-background px-2 py-3 border-border border-b">
-            <a href="/profile#kyc" className="group inline-block relative">
+            <a href="/profile#kyc" className="flex items-baseline gap-x-2">
                 <Avatar className="border border-border rounded-full">
                     <AvatarImage src={profilePicture || "/user.svg"} alt="default profile" />
                     <AvatarFallback>TL</AvatarFallback>
                 </Avatar>
-                <div className="right-0 -bottom-1 absolute flex items-center gap-x-1">
+                <div className="flex items-center gap-x-1">
                     <span className={`size-3 rounded-full ${status === "pending" ? "bg-amber-500" : status === "accepted" ? "bg-green-500" : "bg-destructive"}`} />
                     <span className={`px-2 py-1 border border-border rounded-md ${status === "pending" ? "text-amber-500" : status === "accepted" ? "text-green-500" : "text-destructive"} text-[8px] md:text-[9px] xl:text-[10px] first-letter:uppercase whitespace-nowrap`}>
                         {status}
