@@ -5,7 +5,7 @@ import { toast } from "react-fox-toast";
 // Hooks, Enums and Utils
 import { useNewTransaction } from "@/services/mutations.service";
 import { paymentMeta } from "@/enum"
-import { formatCurrency, isValidTxHashForCoin, type CoinKey } from "@/utils/format";
+import { formatCurrency } from "@/utils/format";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -55,11 +55,6 @@ const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amou
     }
 
     const handleSubmit = () => {
-        if (!hash.trim() || !isValidTxHashForCoin(coin as CoinKey, hash)) {
-            toast.error("Please enter the transaction hash")
-            return
-        }
-
         const data: NewTransaction = {
             coin: coin as TransactionCoin,
             amount: amount,
@@ -179,7 +174,7 @@ const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amou
                                 </div>
 
                                 {/* Submit Button */}
-                                <Button onClick={handleSubmit} disabled={!hash.trim() || newTransaction.isPending} className="w-full">
+                                <Button onClick={handleSubmit} disabled={newTransaction.isPending} className="w-full">
                                     {newTransaction.isPending ? "Processing..." : "Submit Payment"}
                                 </Button>
 
