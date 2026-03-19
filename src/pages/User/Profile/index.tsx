@@ -135,7 +135,7 @@ const Index = () => {
                     <span className={`${user.kyc.status === "pending" ? "text-yellow-500" : user.kyc.status === "accepted" ? "text-green-500" : "text-destructive"} capitalize`}>{user.kyc.status}</span>
                 </div>
 
-                {user.kyc.status === "rejected" && (
+                {(user.kyc.status === "rejected" || (user.kyc.status === "pending" && user.kyc.images.length === 0)) && (
                     <Kyc />
                 )}
             </section>
