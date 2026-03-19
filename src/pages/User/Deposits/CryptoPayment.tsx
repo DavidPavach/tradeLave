@@ -166,7 +166,7 @@ const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amou
                                 </div>
 
                                 <div className="mb-6">
-                                    <label className="block mb-3 font-semibold text-foreground text-sm">Transaction Hash</label>
+                                    <label className="block mb-3 font-semibold text-foreground text-sm">Transaction Hash (Optional)</label>
                                     <Input placeholder="Enter transaction hash (0x...)" value={hash} onChange={(e) => setHash(e.target.value)} className="font-mono text-sm" />
                                     <p className="mt-2 text-muted-foreground text-xs">
                                         Paste your transaction hash from the blockchain explorer
@@ -175,7 +175,7 @@ const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amou
 
                                 {/* Submit Button */}
                                 <Button onClick={handleSubmit} disabled={newTransaction.isPending} className="w-full">
-                                    {newTransaction.isPending ? "Processing..." : "Submit Payment"}
+                                    {newTransaction.isPending ? "Processing..." : "Confirm Payment"}
                                 </Button>
 
                                 {/* Back Button */}
