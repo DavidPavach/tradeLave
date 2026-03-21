@@ -84,8 +84,19 @@ export default function CryptoForm() {
               <Label htmlFor="amount" className="font-semibold text-foreground">
                 Amount <span className="text-destructive">*</span>
               </Label>
-              <Input disabled={processing} id="amount" type="number" step="0.0001" placeholder="Enter amount" className="w-full montserrat" value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })} min="0" />
-              <p className="text-[11px] text-yellow-600 dark:text-yellow-400 md:text-xs xl:text-sm">Minimum deposit: <span className="montserrat">${MINI_DEPOSIT_USD} USD</span></p>
+
+              <div className="relative">
+                <span className="top-1/2 left-3 absolute text-muted-foreground -translate-y-1/2">$</span>
+
+                <Input disabled={processing} id="amount" type="number" step="0.0001"
+                  placeholder="Enter amount" className="pl-8 w-full montserrat" value={formData.amount}
+                  onChange={(e) => setFormData({ ...formData, amount: e.target.value })} min="0" />
+              </div>
+
+              <p className="text-[11px] text-yellow-600 dark:text-yellow-400 md:text-xs xl:text-sm">
+                Minimum deposit:{" "}
+                <span className="montserrat">${MINI_DEPOSIT_USD} USD</span>
+              </p>
             </div>
           </section>
 

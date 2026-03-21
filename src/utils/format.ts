@@ -154,7 +154,7 @@ export function isValidTxHashForCoin(coin: CoinKey, input?: string): boolean {
     }
 }
 
-type valueType = string | number | boolean | Date | object | null
+export type valueType = string | number | boolean | Date | object | null
 
 // Get Updated Object
 export const getUpdatedFields = (original: Record<string, valueType>, current: Record<string, valueType>) => {

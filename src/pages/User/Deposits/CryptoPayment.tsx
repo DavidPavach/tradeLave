@@ -139,7 +139,7 @@ const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amou
                                     <p className="text-foreground/70 text-xs leading-relaxed">
                                         Send exactly{" "}
                                         <span className="font-semibold">
-                                            {amount} {coin.toUpperCase()}
+                                            {formatCurrency(amount)} {coin.toUpperCase()}
                                         </span>{" "}
                                         to the wallet address above or scan the QR code. After payment, enter your transaction hash below.
                                     </p>

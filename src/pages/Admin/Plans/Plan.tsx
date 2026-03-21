@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-fox-toast";
 
 // Utils and Services
-import { formatCurrency, formatDate, getUpdatedFields, notEmpty, toNumberSafe } from "@/utils/format";
+import { formatCurrency, formatDate, notEmpty, toNumberSafe } from "@/utils/format";
 import { useAdminDeletePlan, useAdminEditPlan } from "@/services/mutations.service";
 
 // Components
@@ -28,6 +28,7 @@ export default function PlanEditor({ plans }: { plans: Plans[] }) {
 
     const [query, setQuery] = useState<string>("");
     const [active, setActive] = useState<Plans | null>(null);
+    const [newValue, setNewValues] = useState<Record<string, string | number>>({});
 
     const filterPlans = () => {
         const q = query.trim().toLowerCase();
@@ -42,24 +43,18 @@ export default function PlanEditor({ plans }: { plans: Plans[] }) {
     };
     const filtered = filterPlans();
 
+    const cancel = () => {
+        setActive(null);
+        setNewValues({})
+    }
+
     const updatePlan = useAdminEditPlan();
     const handleEdit = () => {
 
         if (!active) return toast.error("No active plan to update.");
-        const extractedPayload = {
-            title: active.title,
-            type: active.type,
-            minValue: active.minValue,
-            maxValue: active.maxValue,
-            roi: active.roi,
-            durationDays: active.durationDays,
-            maxExecutions: active.maxExecutions
-        }
 
-        const payload = getUpdatedFields(active, extractedPayload);
-
-        if (notEmpty(payload)) {
-            updatePlan.mutate({ planId: active._id, ...payload } as EditPlanPayload, {
+        if (notEmpty(newValue ?? {})) {
+            updatePlan.mutate({ planId: active._id, ...newValue } as EditPlanPayload, {
                 onSuccess: () => {
                     toast.success("Plan updated successfully!");
                     setActive(null);
@@ -91,7 +86,7 @@ export default function PlanEditor({ plans }: { plans: Plans[] }) {
     }
 
     return (
-        <section className="w-full">
+        <section className="md:mb-20 lg:mb-0 w-full">
             <Card className="bg-card border-border text-card-foreground">
                 <CardHeader className="space-y-2 px-4">
                     <div className="flex md:flex-row flex-col md:justify-between md:items-center gap-2">
@@ -200,47 +195,43 @@ export default function PlanEditor({ plans }: { plans: Plans[] }) {
                     <div className="gap-4 grid md:grid-cols-2">
                         <div className="space-y-2 md:col-span-2">
                             <Label htmlFor="title">Title</Label>
-                            <Input id="title" className="bg-background"
-                                value={active?.title ?? ""}
-                                onChange={(e) => setActive((d) => (d ? { ...d, title: e.target.value } : d))}
-                            />
+                            <Input id="title" className="bg-background" value={newValue?.title ?? active?.title ?? ""}
+                                onChange={(e) => setNewValues((d) => ({ ...d, title: e.target.value }))} />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="roi">ROI (%)</Label>
-                            <Input id="roi" className="bg-background montserrat" inputMode="decimal" value={String(active?.roi ?? 0)}
-                                onChange={(e) => setActive((d) => (d ? { ...d, roi: toNumberSafe(e.target.value) } : d))} />
+                            <Input id="roi" className="bg-background montserrat" inputMode="decimal" value={newValue?.roi ?? active?.roi ?? 0}
+                                onChange={(e) => setNewValues((d) => ({ ...d, roi: toNumberSafe(e.target.value) }))} />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="minValue">Min Value</Label>
-                            <Input id="minValue" className="bg-background montserrat" inputMode="numeric"
-                                value={String(active?.minValue ?? 0)}
-                                onChange={(e) => setActive((d) => (d ? { ...d, minValue: toNumberSafe(e.target.value) } : d))} />
+                            <Input id="minValue" className="bg-background montserrat" inputMode="numeric" value={newValue?.minValue ?? active?.minValue ?? 0}
+                                onChange={(e) => setNewValues((d) => ({ ...d, minValue: toNumberSafe(e.target.value) }))} />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="maxValue">Max Value</Label>
-                            <Input id="maxValue" className="bg-background montserrat" inputMode="numeric" value={String(active?.maxValue ?? 0)}
-                                onChange={(e) => setActive((d) => (d ? { ...d, maxValue: toNumberSafe(e.target.value) } : d))} />
+                            <Input id="maxValue" className="bg-background montserrat" inputMode="numeric" value={newValue?.maxValue ?? active?.maxValue ?? 0}
+                                onChange={(e) => setNewValues((d) => ({ ...d, maxValue: toNumberSafe(e.target.value) }))} />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="durationDays">Duration (days)</Label>
-                            <Input id="durationDays" className="bg-background montserrat" inputMode="numeric" value={String(active?.durationDays ?? 1)}
-                                onChange={(e) => setActive((d) => (d ? { ...d, durationDays: Math.max(1, toNumberSafe(e.target.value)) } : d))} />
+                            <Input id="durationDays" className="bg-background montserrat" inputMode="numeric" value={newValue?.durationDays ?? active?.durationDays ?? 1}
+                                onChange={(e) => setNewValues((d) => ({ ...d, durationDays: toNumberSafe(e.target.value) }))} />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="maxExecutions">Max Executions</Label>
-                            <Input id="maxExecutions" className="bg-background montserrat" inputMode="numeric"
-                                value={String(active?.maxExecutions ?? 1)}
-                                onChange={(e) => setActive((d) => (d ? { ...d, maxExecutions: Math.max(1, toNumberSafe(e.target.value)) } : d))} />
+                            <Input id="maxExecutions" className="bg-background montserrat" inputMode="numeric" value={newValue?.maxExecutions ?? active?.maxExecutions ?? 1}
+                                onChange={(e) => setNewValues((d) => ({ ...d, maxExecutions: toNumberSafe(e.target.value) }))} />
                         </div>
                     </div>
 
                     <DialogFooter className="gap-2">
-                        <Button type="button" variant="outline" onClick={() => setActive(null)} disabled={updatePlan.isPending}>
+                        <Button type="button" variant="outline" onClick={cancel} disabled={updatePlan.isPending}>
                             Cancel
                         </Button>
                         <Button type="button" onClick={handleEdit} disabled={updatePlan.isPending} className="bg-primary text-primary-foreground">

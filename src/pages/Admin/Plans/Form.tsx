@@ -123,14 +123,14 @@ const Form = ({ isOpen, toggleOpen }: { isOpen: boolean, toggleOpen: () => void 
                     <div className="space-y-2">
                         <Label htmlFor="durationDays">Duration (days)</Label>
                         <Input id="durationDays" className="bg-background montserrat" inputMode="numeric" value={String(planData.durationDays)}
-                            onChange={(e) => setPlanData((d) => ({ ...d, durationDays: Math.max(1, toNumberSafe(e.target.value)) }))} />
+                            onChange={(e) => setPlanData((d) => ({ ...d, durationDays: toNumberSafe(e.target.value) }))} />
                         <ErrorText message={errors.durationDays} />
                     </div>
 
                     <div className="space-y-2">
                         <Label htmlFor="maxExecutions">Max Executions</Label>
                         <Input id="maxExecutions" className="bg-background montserrat" inputMode="numeric" value={String(planData.maxExecutions)}
-                            onChange={(e) => setPlanData((d) => ({ ...d, maxExecutions: Math.max(1, toNumberSafe(e.target.value)) }))} />
+                            onChange={(e) => setPlanData((d) => ({ ...d, maxExecutions: toNumberSafe(e.target.value) }))} />
                         <ErrorText message={errors.maxExecutions} />
                     </div>
                 </div>
