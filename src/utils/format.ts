@@ -46,7 +46,7 @@ export function formatTimeLeft(ms: number) {
 //Format currency
 export const formatCurrency = (value: number, max = 2) => {
     return new Intl.NumberFormat("en-US", {
-        style: "currency", currency: "USD", minimumFractionDigits: max, maximumFractionDigits: 2,
+        style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: max,
     }).format(value)
 }
 
