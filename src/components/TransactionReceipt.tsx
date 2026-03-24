@@ -103,6 +103,7 @@ STATUS: ${statusConfig.label}
 
 COIN: ${transaction.coin.toUpperCase()}
 AMOUNT: ${typeConfig.sign}${transaction.amount}
+CRYPTOCURRENCY EQUIVALENT: ${transaction.coinAmount}
 NETWORK: ${transaction.network || 'N/A'}
 
 ${transaction.walletAddress ? `WALLET ADDRESS: ${transaction.walletAddress}` : ''}
@@ -174,6 +175,7 @@ Generated: ${formatDate(new Date())}
                                         {typeConfig.sign}{formatCurrency(transaction.amount)}
                                     </h3>
                                     <div className="flex justify-center items-center gap-x-1 text-muted-foreground">
+                                        <p>{transaction.coinAmount}</p>
                                         {meta?.logo && <img src={meta.logo} alt={meta.name + " logo"} className='size-7 md:size-8 xl:size-9' />}
                                         <span className="font-semibold text-sm md:text-base xl:text-lg">{transaction.coin.toUpperCase()}</span>
                                     </div>

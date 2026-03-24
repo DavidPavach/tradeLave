@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-fox-toast";
 
-// Enums and Hooks
+// Enums, Hooks and utils
 import { COINS, MINI_DEPOSIT_USD } from "@/enum";
 import { useCreateDepositRequest } from "@/services/mutations.service";
+import { useCoinDetails } from "@/Hooks/usePrices";
+import { formatCurrency } from "@/utils/format";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -11,13 +13,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Icons
-import { Textarea } from "@/components/ui/textarea";
 import { Loader } from "lucide-react";
+import { Refresh } from "iconsax-reactjs";
 
 export default function Form() {
-
 
   const [formData, setFormData] = useState({
     coin: "",
@@ -25,6 +28,11 @@ export default function Form() {
     notes: "",
     agreed: false
   })
+
+  const { loading, fetching, isError, refetch, getCoinDetails } = useCoinDetails();
+  const coinDetails = getCoinDetails(formData.coin);
+
+
 
   // Functions
   const reset = () => {
@@ -35,6 +43,7 @@ export default function Form() {
       agreed: false,
     })
   }
+
 
   const createRequest = useCreateDepositRequest();
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,7 +56,12 @@ export default function Form() {
     if (Number(formData.amount) < MINI_DEPOSIT_USD) return toast.error(`Minimum deposit amount is $${MINI_DEPOSIT_USD} USD`);
 
     // Create Bank Transfer Request Data
-    const data: createRequest = { coin: formData.coin, amount: Number(formData.amount), notes: formData.notes.trim().length > 0 ? formData.notes : undefined };
+    const data: createRequest = {
+      coin: formData.coin,
+      amount: Number(formData.amount),
+      coinAmount: Number((parseFloat(formData.amount) / (Math.ceil(coinDetails.price * 100) / 100)).toFixed(2)),
+      notes: formData.notes.trim().length > 0 ? formData.notes : undefined
+    };
     toast("Creating bank transfer request...")
 
     createRequest.mutate(data, {
@@ -90,7 +104,29 @@ export default function Form() {
           <Label htmlFor="amount" className="font-semibold text-foreground">
             Amount <span className="text-destructive">*</span>
           </Label>
-          <Input disabled={createRequest.isPending} id="amount" type="number" step="0.0001" placeholder="Enter amount" className="w-full montserrat" value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })} min="0" />
+
+          <div className="relative">
+            <span className="top-1/2 left-3 absolute text-muted-foreground -translate-y-1/2">
+              $
+            </span>
+            <Input
+              disabled={createRequest.isPending} id="amount" type="number" step="0.0001" min="0"
+              placeholder="0.00" className="pl-7 w-full montserrat" value={formData.amount}
+              onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+            />
+          </div>
+          {
+            (formData.coin.trim() && formData.amount.trim()) &&
+            <>
+              {(loading || fetching) && <Skeleton className="mt-0.5 h-2" />}
+
+              {isError && <Refresh className="size-4 text-accent animate-spin" onClick={refetch} />}
+
+              {(!loading && !fetching && !isError) &&
+                <p className="text-[11px] md:text-xs xl:text-sm montserrat">You are depositing <span className="text-accent">{formatCurrency(parseInt(formData.amount))} ({(parseInt(formData.amount) / coinDetails.price).toFixed(2)} {coinDetails.symbol})</span><img src={coinDetails.logo} className="inline mx-0.5 size-5 xl:size-6" alt={coinDetails.name} />.</p>
+              }
+            </>
+          }
         </div>
       </section>
 

@@ -110,11 +110,11 @@ const CardSummary = ({ title, Icon, figure, isLoading }: CardSummaryProps) => {
     );
 };
 
-const Summary = ({ accountId, totalBalance, activeHoldings, totalRois, totalReferrals, isLoading }: { accountId: string, totalBalance: number, activeHoldings: number, totalRois: number, totalReferrals: number, isLoading: boolean }) => {
+const Summary = ({ accountId, totalBalance, activeStakes, totalRois, totalReferrals, isLoading }: { accountId: string, totalBalance: number, activeStakes: number, totalRois: number, totalReferrals: number, isLoading: boolean }) => {
 
     const CARD_DATA: { title: string; Icon: React.ComponentType<IconsaxIconProps>; figure: string }[] = [
         { title: "Total Balance", Icon: Wallet1, figure: formatCurrency(totalBalance) },
-        { title: "Active Holdings", Icon: Activity, figure: formatCurrency(activeHoldings) },
+        { title: "Active Stakes", Icon: Activity, figure: formatCurrency(activeStakes) },
         { title: "Total ROIs", Icon: HomeTrendUp, figure: formatCurrency(totalRois) },
         { title: "Referral Rewards", Icon: Gift, figure: formatCurrency(totalReferrals) },
     ];

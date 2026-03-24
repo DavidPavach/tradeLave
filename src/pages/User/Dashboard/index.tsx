@@ -42,7 +42,7 @@ const Dashboard = () => {
             <Summary
                 accountId={userDetailsQuery.data?.data?.accountId}
                 totalBalance={dashboardQuery.data?.data?.totalBalance ?? 0}
-                activeHoldings={dashboardQuery.data?.data?.totalHoldings ?? 0}
+                activeStakes={dashboardQuery.data?.data?.totalStakes ?? 0}
                 totalRois={dashboardQuery.data?.data?.totalROIs ?? 0}
                 totalReferrals={dashboardQuery.data?.data?.totalRewards ?? 0}
                 isLoading={isLoading}

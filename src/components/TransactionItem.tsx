@@ -112,7 +112,7 @@ export default function TransactionItem({ transaction, onClick, index }: Props) 
                 )}>
                     {amountPrefix}{formatCurrency(transaction.amount)}
                 </p>
-                <p className="mt-0.5 text-muted-foreground text-xs">{formatCurrency(transaction.amount)}</p>
+                <p className="mt-0.5 text-muted-foreground text-xs">{transaction.coinAmount}</p>
             </div>
         </motion.div>
     );

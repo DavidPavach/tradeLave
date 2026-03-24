@@ -53,7 +53,9 @@ export default function DepositRequestsList({ requests }: { requests: DepositReq
                                     <p className="font-semibold capitalize montserrat">
                                         {formatCurrency(request.amount)} {coinInfo.symbol}
                                     </p>
-                                    <p className={`mt-0.5 text-[11px] ${request.hasPaid ? "text-green-600 dark:text-green-400" : "text-muted-foreground"} md:text-xs xl:text-sm`}>{request.hasPaid ? "✓ Paid" : "Pending Payment"}</p>
+                                    <p className={`mt-0.5 text-[11px] montserrat ${request.hasPaid ? "text-green-600 dark:text-green-400" : "text-muted-foreground"} md:text-xs xl:text-sm`}>
+                                       {request.coinAmount} {coinInfo.symbol} {request.hasPaid ? "✓ Paid" : "Pending Payment"}
+                                    </p>
                                 </div>
                             </div>
                             {expandedId === request._id ? (

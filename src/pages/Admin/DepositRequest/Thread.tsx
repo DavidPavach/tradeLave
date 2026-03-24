@@ -112,7 +112,7 @@ export default function Thread({ item }: { item: AdminDepositRequest }) {
             <header className="flex md:flex-row flex-col md:justify-between md:items-start gap-3 p-4 border-border border-b">
                 <div className="min-w-0">
                     <h2 className="font-semibold text-sm md:text-base xl:text-lg truncate capitalize">
-                        {item.coin} • <span className="montserrat">{formatCurrency(item.amount)}</span>
+                        {item.coin} • <span className="montserrat">{item.coinAmount} ~ {formatCurrency(item.amount)}</span> 
                     </h2>
                     <p className="mt-1 text-[11px] text-muted-foreground md:text-xs xl:text-sm">
                         Created: {formatDate(item.createdAt)} • Updated: {formatDate(item.updatedAt)}

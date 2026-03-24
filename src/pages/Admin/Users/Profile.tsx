@@ -2,9 +2,10 @@ import { useState } from "react";
 import { toast } from "react-fox-toast";
 
 // Enums, Services and Utils
-import { COINS, coinMeta } from "@/enum";
+import { COINS, coinMap, coinMeta } from "@/enum";
+import { useCoinPrice } from "@/Hooks/adminUsePrices";
 import { useAdminCreateTx, useAdminUpdateUser } from "@/services/mutations.service";
-import { useAdminUserBalance } from "@/services/queries.service";
+import { useAdminUserBalance, usePrices } from "@/services/queries.service";
 import { formatCurrency, getUpdatedFields, notEmpty, toNumberSafe } from "@/utils/format";
 
 // Components
@@ -39,12 +40,22 @@ export default function Profile({ profile }: { profile: User }) {
 
 
     const { data, isLoading, isFetching, isError, refetch } = useAdminUserBalance(profile._id);
+    const { data: PricesData } = usePrices();
+
     const userData: UserBalance = data?.data || defaultBalance;
-    const userBalance = Object.entries(userData).map(([key, amount]) => ({
-        key,
-        amount,
-        meta: coinMeta[key],
-    }));
+    const userBalance = Object.entries(userData).map(([key, amount]) => {
+        const apiId = coinMap[key];
+        const price = PricesData?.data?.[apiId]?.usd || 0;
+        const balanceInUsd = Math.ceil((amount * price) * 100) / 100;
+
+        return {
+            key,
+            amount,
+            price,
+            balanceInUsd,
+            meta: coinMeta[key],
+        };
+    });
 
     const [userDetails, setUserDetails] = useState<UpdateUserPayload>({
         email: profile.email,
@@ -110,13 +121,24 @@ export default function Profile({ profile }: { profile: User }) {
         }
     }
 
+    const coinAmount = Math.ceil((parseFloat(tx.amount) / useCoinPrice(tx.coin)) * 100) / 100;
+
     const createTx = useAdminCreateTx();
     const handleCreate = () => {
         const amount = toNumberSafe(tx.amount);
         if (!amount || amount <= 0) {
             return toast.error("Enter a valid amount greater than 0.");
         }
-        const payload = { ...tx, amount: toNumberSafe(tx.amount), user: profile._id }
+        if (coinAmount === 0) {
+            return toast.error("Something went wrong during coin estimation, kindly reselect the coin");
+        }
+
+        const payload = {
+            ...tx,
+            amount: toNumberSafe(tx.amount),
+            user: profile._id,
+            coinAmount: coinAmount
+        }
         createTx.mutate(payload, {
             onSuccess: (response) => {
                 toast.success(response.message || "User Transaction was created successfully");
@@ -241,7 +263,8 @@ export default function Profile({ profile }: { profile: User }) {
                                                             </div>
 
                                                             <div className="text-right">
-                                                                <div className="font-semibold text-[11px] md:text-xs xl:text-sm montserrat">{formatCurrency(r.amount)}</div>
+                                                                <div className="font-semibold text-[11px] md:text-xs xl:text-sm montserrat">{r.amount}</div>
+                                                                <div className="font-semibold text-[11px] text-accent md:text-xs xl:text-sm montserrat">{formatCurrency(r.balanceInUsd)}</div>
                                                                 <div className="text-[10px] text-muted-foreground md:text-[11px] xl:text-xs capitalize">{r.key}</div>
                                                             </div>
                                                         </div>
@@ -391,6 +414,7 @@ export default function Profile({ profile }: { profile: User }) {
                                             <Label htmlFor="amount">Amount</Label>
                                             <Input id="amount" inputMode="decimal" value={tx.amount}
                                                 onChange={(e) => setTx((p) => ({ ...p, amount: e.target.value }))} className="bg-card montserrat" placeholder="0.00" />
+                                            {tx.amount.trim() && <p className="text-accent capitalize montserrat"> Cryptocurrency Equivalent: {coinAmount} {tx.coin}</p>}
                                         </div>
 
                                         <div className="space-y-2">

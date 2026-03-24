@@ -54,6 +54,7 @@ export function TransactionsTable({ data }: { data: AdminTx[] }) {
                                 <th>Type</th>
                                 <th>Coin</th>
                                 <th>Amount</th>
+                                <th>Coin Amount</th>
                                 <th>Status</th>
                                 <th>Date</th>
                                 <th className="text-right">Actions</th>
@@ -86,6 +87,7 @@ export function TransactionsTable({ data }: { data: AdminTx[] }) {
 
                                     <td className="capitalize">{tx.coin}</td>
                                     <td className="font-medium montserrat">{formatCurrency(tx.amount)}</td>
+                                    <td className="font-medium montserrat">{tx.coinAmount}</td>
 
                                     <td>
                                         <Badge className={`${STATUS_COLORS[tx.status]} text-white`}>

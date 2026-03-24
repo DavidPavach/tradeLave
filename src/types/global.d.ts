@@ -31,6 +31,7 @@ declare type UserAuth = {
 declare type createRequest = {
     coin: string,
     amount: number,
+    coinAmount: number,
     notes: string | undefined,
 }
 
@@ -39,6 +40,7 @@ declare type DepositRequest = {
     _id: string,
     coin: string,
     amount: number,
+    coinAmount: number,
     status: "pending" | "successful" | "failed" | "closed",
     hasPaid: boolean,
     details: {

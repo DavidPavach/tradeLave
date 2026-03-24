@@ -19,7 +19,9 @@ interface PaymentDetails {
     walletAddress: string
 }
 
-const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amount: number, closeModal: () => void, reset: () => void }) => {
+const CryptoPayment = (
+    { coin, amount, coinAmount, closeModal, reset }:
+        { coin: string, amount: number, coinAmount: number, closeModal: () => void, reset: () => void }) => {
 
     const [hash, setHash] = useState<string>("")
     const [timeLeft, setTimeLeft] = useState<number>(600)
@@ -58,6 +60,7 @@ const CryptoPayment = ({ coin, amount, closeModal, reset }: { coin: string, amou
         const data: NewTransaction = {
             coin: coin as TransactionCoin,
             amount: amount,
+            coinAmount: coinAmount,
             transactionType: "deposit" as TransactionType,
             transactionHash: hash
         }

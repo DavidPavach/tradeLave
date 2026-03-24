@@ -28,6 +28,7 @@ export type CoinDetails = {
     priceChange24h: number;
     userBalance: number;
     holdings: number;
+    usdEquiv: number;
     marketCap: number;
     tradingVolume: number;
 };
@@ -80,7 +81,8 @@ export const useCoinDetails = () => {
         const tradingVolume = priceObj?.usd_24h_vol ?? 0;
 
         const userBalance = balancesData?.data?.[key as keyof BalanceResponse['data']] ?? 0;
-        const holdings = userBalance / price;
+        const holdings = userBalance;
+        const usdEquiv = userBalance * price;
         const meta = coinMeta[key] ?? { name: coinKey, symbol: coinKey.toUpperCase(), logo: undefined };
 
         return {
@@ -92,6 +94,7 @@ export const useCoinDetails = () => {
             priceChange24h: priceChange,
             userBalance,
             holdings,
+            usdEquiv,
             marketCap,
             tradingVolume
         };

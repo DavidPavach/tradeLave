@@ -12,6 +12,7 @@ declare type Transaction = {
   coin: TransactionCoin;
   transactionType: TransactionType;
   amount: number;
+  coinAmount: number;
   network: string | null;
   walletAddress: string;
   transactionHash: string;
@@ -25,6 +26,7 @@ declare type NewTransaction = {
   coin: TransactionCoin;
   transactionType: TransactionType;
   amount: number;
+  coinAmount;
   transactionHash?: string;
   network?: string;
   walletAddress?: string;
@@ -36,6 +38,7 @@ declare type TxPayload = {
   coin: string;
   transactionType: string;
   amount: number;
+  coinAmount: number;
   network?: string;
   walletAddress?: string;
   status: string;
@@ -72,6 +75,7 @@ declare type NewInvestment = {
   coin: TransactionCoin
   plan: string;
   amount: number;
+  rate: number;
 }
 
 declare type Investment = {

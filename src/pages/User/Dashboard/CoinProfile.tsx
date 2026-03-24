@@ -42,7 +42,6 @@ const CoinProfile = () => {
                 const priceObj = data.data[apiKey];
                 const price = priceObj?.usd ?? 0;
                 const priceChange = priceObj?.usd_24h_change ?? 0;
-                const balance = amount;
                 return {
                     id: key,
                     name: meta.name,
@@ -50,8 +49,8 @@ const CoinProfile = () => {
                     logo: meta.logo,
                     price,
                     priceChange24h: priceChange,
-                    holdings: amount / price,
-                    balance,
+                    holdings: amount,
+                    balance: amount * price,
                 };
             }
         );

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-fox-toast";
 
-// Enums, Hooks and Types
+// Enums, Hooks and Utils
 import { COINS, MINI_DEPOSIT_USD } from "@/enum";
+import { useCoinDetails } from "@/Hooks/usePrices";
+import { formatCurrency } from "@/utils/format";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -10,10 +12,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import CryptoPayment from "./CryptoPayment";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Icons
 import { Loader } from "lucide-react";
-import CryptoPayment from "./CryptoPayment";
+import { Refresh } from "iconsax-reactjs";
 
 export default function CryptoForm() {
 
@@ -24,6 +28,9 @@ export default function CryptoForm() {
     amount: "",
     agreed: false
   })
+
+  const { loading, fetching, isError, refetch, getCoinDetails } = useCoinDetails();
+  const coinDetails = getCoinDetails(formData.coin);
 
   // Functions
   const togglePay = () => setPay((prev) => !prev);
@@ -58,7 +65,13 @@ export default function CryptoForm() {
   return (
     <>
       {pay ?
-        <CryptoPayment coin={formData.coin} amount={Number(formData.amount)} closeModal={togglePay} reset={reset} />
+        <CryptoPayment
+          coin={formData.coin}
+          amount={Number(formData.amount)}
+          coinAmount={Number((parseFloat(formData.amount) / (Math.ceil(coinDetails.price * 100) / 100)).toFixed(2))}
+          closeModal={togglePay}
+          reset={reset}
+        />
         :
         <form onSubmit={handleSubmit} className="space-y-6 mx-auto mt-16 max-w-4xl">
           <section className="flex flex-col gap-y-5">
@@ -88,10 +101,23 @@ export default function CryptoForm() {
               <div className="relative">
                 <span className="top-1/2 left-3 absolute text-muted-foreground -translate-y-1/2">$</span>
 
-                <Input disabled={processing} id="amount" type="number" step="0.0001"
+                <Input disabled={processing} id="amount" type="number" step="0.0001" min="0"
                   placeholder="Enter amount" className="pl-8 w-full montserrat" value={formData.amount}
-                  onChange={(e) => setFormData({ ...formData, amount: e.target.value })} min="0" />
+                  onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                />
               </div>
+              {
+                (formData.coin.trim() && formData.amount.trim()) &&
+                <>
+                  {(loading || fetching) && <Skeleton className="mt-0.5 h-2" />}
+
+                  {isError && <Refresh className="size-4 text-accent animate-spin" onClick={refetch} />}
+
+                  {(!loading && !fetching && !isError) &&
+                    <p className="text-[11px] md:text-xs xl:text-sm montserrat">You are depositing <span className="text-accent">{formatCurrency(parseInt(formData.amount))} ({(parseInt(formData.amount) / coinDetails.price).toFixed(2)} {coinDetails.symbol})</span><img src={coinDetails.logo} className="inline mx-0.5 size-5 xl:size-6" alt={coinDetails.name} />.</p>
+                  }
+                </>
+              }
 
               <p className="text-[11px] text-yellow-600 dark:text-yellow-400 md:text-xs xl:text-sm">
                 Minimum deposit:{" "}

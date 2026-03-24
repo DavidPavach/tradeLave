@@ -1,4 +1,5 @@
-// Utils
+// Enums and Utils
+import { coinMeta } from "@/enum";
 import { formatCurrency, formatDate } from "@/utils/format";
 
 // Components
@@ -22,15 +23,15 @@ export default function CryptoDetails({ transaction }: { transaction: Transactio
     return (
         <div className="space-y-6">
             {/* Transaction Details */}
-            <div className="gap-4 grid grid-cols-2 md:grid-cols-3">
+            <div className="gap-4 space-y-2 sm:grid sm:grid-cols-2 md:grid-cols-3">
                 <section className="bg-card p-3 md:p-4 border border-border rounded-xl">
                     <p className="text-muted-foreground text-xs">Amount</p>
-                    <p className="mt-1 font-semibold text-foreground montserrat">{formatCurrency(transaction.amount)} USD</p>
+                    <p className="mt-1 font-semibold text-foreground montserrat">{formatCurrency(transaction.amount)} USD  <span className="text-accent">{transaction.coinAmount} {coinMeta[transaction.coin].symbol}</span></p>
                 </section>
 
                 <section className="bg-card p-3 md:p-4 border border-border rounded-xl">
                     <p className="text-muted-foreground text-xs">Status</p>
-                    <p className={`mt-1 font-semibold text-foreground ${statusColors[transaction.status]}`}>{transaction.status}</p>
+                    <p className={`mt-1 font-semibold text-foreground capitalize ${statusColors[transaction.status]}`}>{transaction.status}</p>
                 </section>
 
                 <section className="col-span-2 md:col-span-1 bg-card p-3 md:p-4 border border-border rounded-xl">

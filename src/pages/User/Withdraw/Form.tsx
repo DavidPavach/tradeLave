@@ -45,6 +45,7 @@ export default function Form() {
     })
 
     const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
+    console.log("The error", validationErrors)
     const coinDetails = getCoinDetails(formData.coin);
 
     const selectedCoin = COINS.find((c) => c.name === formData.coin)
@@ -76,29 +77,39 @@ export default function Form() {
     }
 
     const validateForm = (): boolean => {
+        const errors: Record<string, string> = {};
 
-        const errors: Record<string, string> = {}
+        // Basic required checks
+        if (!formData.coin) {
+            errors.coin = "Please select a cryptocurrency";
+        }
 
-        if (coinDetails !== undefined || null) {
-            if (coinDetails.userBalance < parseInt(formData.amount)) {
-                errors.amount = "Amount exceeds available balance."
+        if (!formData.amount || Number.parseFloat(formData.amount) <= 0) {
+            errors.amount = "Please enter a valid amount";
+        }
+
+        if (!formData.walletAddress?.trim()) {
+            errors.walletAddress = "Please enter a wallet address";
+        }
+
+        if (requiresNetwork && !formData.network) {
+            errors.network = "Please select a network";
+        }
+
+        // Balance Check (Only run if we have coinDetails and a valid amount)
+        if (coinDetails && formData.amount) {
+            const inputAmount = parseFloat(formData.amount);
+            const coinPrice = Math.ceil(coinDetails.price * 100) / 100;
+            const requestedCoinAmount = inputAmount / coinPrice;
+
+            if (coinDetails.userBalance < requestedCoinAmount) {
+                errors.amount = `Amount exceeds available balance ${coinDetails.usdEquiv}.`;
             }
         }
 
-        if (!formData.coin) errors.coin = "Please select a cryptocurrency"
-        if (!formData.amount || Number.parseFloat(formData.amount) <= 0) {
-            errors.amount = "Please enter a valid amount"
-        }
-        if (!formData.walletAddress || formData.walletAddress.trim() === "") {
-            errors.walletAddress = "Please enter a wallet address"
-        }
-        if (requiresNetwork && !formData.network) {
-            errors.network = "Please select a network"
-        }
-
-        setValidationErrors(errors)
-        return Object.keys(errors).length === 0
-    }
+        setValidationErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
 
     const reset = () => {
         setFormData({
@@ -113,31 +124,34 @@ export default function Form() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (coinDetails !== undefined || null) {
-            if (coinDetails.userBalance < parseInt(formData.amount)) return toast.error("Amount exceeds available balance.")
+        // The validateForm now handles the balance check too!
+        if (!validateForm()) {
+            return;
         }
 
-        if (validateForm()) {
-            const submissionData = {
-                ...formData,
-                transactionType: "withdrawal" as TransactionType,
-                coin: formData.coin as TransactionCoin,
-                amount: parseInt(formData.amount)
-            }
-            newWithdrawal.mutate(submissionData, {
-                onSuccess: (response) => {
-                    toast.success(response.message || "Your withdrawal request was initiated successfully!");
-                    reset();
-                },
+        const inputAmount = parseFloat(formData.amount);
+        const roundedPrice = Math.ceil(coinDetails.price * 100) / 100;
 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onError: (error: any) => {
-                    const message = error?.response?.data?.message || "Withdrawal request failed. Please try again.";
-                    toast.error(message);
-                },
-            });
-        }
-    }
+        const submissionData = {
+            ...formData,
+            transactionType: "withdrawal" as TransactionType,
+            coin: formData.coin as TransactionCoin,
+            coinAmount: Number((inputAmount / roundedPrice).toFixed(2)),
+            amount: inputAmount
+        };
+
+        newWithdrawal.mutate(submissionData, {
+            onSuccess: (response) => {
+                toast.success(response.message || "Success!");
+                reset();
+            },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onError: (error: any) => {
+                const message = error?.response?.data?.message || "Failed. Try again.";
+                toast.error(message);
+            },
+        });
+    };
 
 
     return (
@@ -170,7 +184,7 @@ export default function Form() {
                                     </SelectContent>
                                 </Select>
                                 {validationErrors.coin && (
-                                    <div className="flex items-center gap-2 text-[11px] text-destructive md:text-xs xl:text-sm">
+                                    <div className="flex items-center gap-2 text-[11px] text-destructive md:text-xs xl:text-sm montserrat">
                                         <AlertCircle className="size-4" />
                                         {validationErrors.coin}
                                     </div>
@@ -192,7 +206,7 @@ export default function Form() {
                                     )}
                                 </div>
                                 {validationErrors.amount && (
-                                    <div className="flex items-center gap-2 text-[11px] text-destructive md:text-xs xl:text-sm">
+                                    <div className="flex items-center gap-2 text-[11px] text-destructive md:text-xs xl:text-sm montserrat">
                                         <AlertCircle className="size-4" />
                                         {validationErrors.amount}
                                     </div>
@@ -258,7 +272,7 @@ export default function Form() {
                                             <span className="text-muted-foreground">Coin</span>
                                             <span className="font-medium text-foreground">{selectedCoin?.label}</span>
                                         </div>
-                                        <div className="flex justify-between text-[11px] md:text-xs xl:text-sm">
+                                        <div className="flex justify-between text-[11px] md:text-xs xl:text-sm montserrat">
                                             <span className="text-muted-foreground">Amount</span>
                                             <span className="font-medium text-foreground">
                                                 {formData.amount} {selectedCoin?.label.split(" ")[0].toUpperCase()}

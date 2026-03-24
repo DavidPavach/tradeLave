@@ -55,7 +55,12 @@ const Form = ({ plans }: { plans: Plans[] }) => {
         // Check coin balance
         if (meta.userBalance < parseFloat(amount)) return toast.error(`You can't take amount higher than your ${meta.name.toUpperCase()} balance.`)
 
-        const formData = { coin: coin as TransactionCoin, plan: selectedPlan._id, amount: parseFloat(amount) };
+        const formData = { 
+            coin: coin as TransactionCoin, 
+            plan: selectedPlan._id, 
+            amount: parseFloat(amount),
+            rate: meta.price,
+        };
         newInvestment.mutate(formData, {
             onSuccess: (response) => {
                 toast.success(response.message || "Your stake was initiated successfully!");
