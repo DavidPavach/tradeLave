@@ -44,9 +44,9 @@ export function formatTimeLeft(ms: number) {
 }
 
 //Format currency
-export const formatCurrency = (value: number) => {
+export const formatCurrency = (value: number, max = 2) => {
     return new Intl.NumberFormat("en-US", {
-        style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2,
+        style: "currency", currency: "USD", minimumFractionDigits: max, maximumFractionDigits: 2,
     }).format(value)
 }
 
@@ -70,19 +70,19 @@ export const formatAddress = (address: string) => {
 export const formatPercentage = (value: number) => `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`;
 
 export function formatPrice(value: number, symbol: string) {
-  if (symbol === "SHIB") return `$${value.toFixed(6)}`;
-  if (value < 1) return `$${value.toFixed(4)}`;
+    if (symbol === "SHIB") return `$${value.toFixed(6)}`;
+    if (value < 1) return `$${value.toFixed(4)}`;
 
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 2,
-  }).format(value);
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2,
+    }).format(value);
 }
 
 export function formatChange(value: number) {
-  const abs = Math.abs(value).toFixed(2);
-  return `${value >= 0 ? "+" : "-"}${abs}%`;
+    const abs = Math.abs(value).toFixed(2);
+    return `${value >= 0 ? "+" : "-"}${abs}%`;
 }
 
 export type CoinKey =

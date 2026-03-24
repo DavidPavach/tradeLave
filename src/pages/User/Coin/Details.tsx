@@ -55,7 +55,7 @@ const Details = () => {
     const meta = getCoinDetails(coin);
 
     const stats = [
-        { label: 'Current Price', value: `${formatCurrency(meta.price)} USD` },
+        { label: 'Current Price', value: `${formatCurrency(meta.price, 5)} USD` },
         { label: '24h Volume', value: `${formatCurrency(meta.tradingVolume)} USD` },
         { label: 'Market Cap', value: `${formatCurrency(meta.marketCap)} USD` },
     ];
@@ -96,8 +96,9 @@ const Details = () => {
             <section className="text-center">
                 <p className="text-[11px] text-muted-foreground md:text-xs xl:text-sm">Your Balance</p>
                 <h2 className="font-bold text-3xl md:text-4xl xl:text-5xl tracking-tight montserrat">
-                    {formatCurrency(meta.userBalance)}
+                    {meta.userBalance}
                 </h2>
+                <p className="text-[11px] text-muted-foreground md:text-xs xl:text-sm">{formatCurrency(meta.usdEquiv)}</p>
             </section>
 
             {/* Actions */}
