@@ -109,7 +109,7 @@ export function useCreateDepositRequest() {
 export function usePatchDepositDetails() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (data: patchDepositDetails) => patchDepositDetailsFn(data),
+        mutationFn: (data: FormData) => patchDepositDetailsFn(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['userDeposits'] });
         },

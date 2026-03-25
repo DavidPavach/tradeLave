@@ -54,6 +54,7 @@ declare type DepositRequest = {
 type DepositMessage = {
     message: string,
     at: string,
+    file?: string
 }
 
 // Bank Transfer Request Details Props

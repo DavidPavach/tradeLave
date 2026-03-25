@@ -100,7 +100,7 @@ export const createDepositRequestFn = async (data: createRequest) => {
 }
 
 // Edit bank transfer request details
-export const patchDepositDetailsFn = async (data: patchDepositDetails) => {
+export const patchDepositDetailsFn = async (data: FormData) => {
     const response = await axiosUser.patch(`requests/update`, data);
     return response.data;
 }
