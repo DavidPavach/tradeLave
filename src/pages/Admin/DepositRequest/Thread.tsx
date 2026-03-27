@@ -112,7 +112,7 @@ export default function Thread({ item }: { item: AdminDepositRequest }) {
             <header className="flex md:flex-row flex-col md:justify-between md:items-start gap-3 p-4 border-border border-b">
                 <div className="min-w-0">
                     <h2 className="font-semibold text-sm md:text-base xl:text-lg truncate capitalize">
-                        {item.coin} • <span className="montserrat">{item.coinAmount} ~ {formatCurrency(item.amount)}</span> 
+                        {item.coin} • <span className="montserrat">{item.coinAmount} ~ {formatCurrency(item.amount)}</span>
                     </h2>
                     <p className="mt-1 text-[11px] text-muted-foreground md:text-xs xl:text-sm">
                         Created: {formatDate(item.createdAt)} • Updated: {formatDate(item.updatedAt)}
@@ -213,7 +213,7 @@ export default function Thread({ item }: { item: AdminDepositRequest }) {
 
                         <div className="p-4 max-h-[420px] overflow-auto">
                             {(() => {
-                                type DetailsMessage = { message: string; at: string };
+                                type DetailsMessage = { message: string; at: string; file?: string };
                                 type TimelineMessage = DetailsMessage & { role: "user" | "admin" };
 
                                 const userMsgs: TimelineMessage[] = (item.details?.user ?? []).map((m) => ({
@@ -251,9 +251,19 @@ export default function Thread({ item }: { item: AdminDepositRequest }) {
                                                             </span>
                                                             <span className="text-muted-foreground text-xs">{formatDate(m.at)}</span>
                                                         </div>
-
                                                         <p className={["mt-1 p-3 ring-border rounded-2xl ring-1 text-[11px] md:text-xs xl:text-sm whitespace-pre-wrap",
                                                             isAdmin ? "bg-primary/20 text-foreground" : "bg-muted/30 text-foreground"].join(" ")}>
+                                                            {m.file && (
+                                                                <div className="mt-2">
+                                                                    {m.file.endsWith(".pdf") ? (
+                                                                        <a href={m.file} target="_blank" className="mb-4 text-blue-500 underline">
+                                                                            View PDF
+                                                                        </a>
+                                                                    ) : (
+                                                                        <img src={m.file} alt="attachment" className="mb-4 rounded-md max-w-[200px]" />
+                                                                    )}
+                                                                </div>
+                                                            )}
                                                             {m.message}
                                                         </p>
                                                     </div>
