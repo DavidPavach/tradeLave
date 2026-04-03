@@ -46,7 +46,7 @@ export default function Profile({ profile }: { profile: User }) {
     const userBalance = Object.entries(userData).map(([key, amount]) => {
         const apiId = coinMap[key];
         const price = PricesData?.data?.[apiId]?.usd || 0;
-        const balanceInUsd = Math.ceil((amount * price) * 100) / 100;
+        const balanceInUsd = Number((amount * price).toFixed(2));
 
         return {
             key,
@@ -121,7 +121,8 @@ export default function Profile({ profile }: { profile: User }) {
         }
     }
 
-    const coinAmount = Math.ceil((parseFloat(tx.amount) / useCoinPrice(tx.coin)) * 100) / 100;
+    const coinPrice = useCoinPrice(tx.coin)
+    const coinAmount = (parseFloat(tx.amount) / coinPrice);
 
     const createTx = useAdminCreateTx();
     const handleCreate = () => {

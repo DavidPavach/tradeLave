@@ -68,7 +68,7 @@ export default function CryptoForm() {
         <CryptoPayment
           coin={formData.coin}
           amount={Number(formData.amount)}
-          coinAmount={Number((parseFloat(formData.amount) / (Math.ceil(coinDetails.price * 100) / 100)).toFixed(2))}
+          coinAmount={(parseFloat(formData.amount) / coinDetails.price)}
           closeModal={togglePay}
           reset={reset}
         />
@@ -114,7 +114,7 @@ export default function CryptoForm() {
                   {isError && <Refresh className="size-4 text-accent animate-spin" onClick={refetch} />}
 
                   {(!loading && !fetching && !isError) &&
-                    <p className="text-[11px] md:text-xs xl:text-sm montserrat">You are depositing <span className="text-accent">{formatCurrency(parseInt(formData.amount))} ({(parseInt(formData.amount) / coinDetails.price).toFixed(2)} {coinDetails.symbol})</span><img src={coinDetails.logo} className="inline mx-0.5 size-5 xl:size-6" alt={coinDetails.name} />.</p>
+                    <p className="text-[11px] md:text-xs xl:text-sm montserrat">You are depositing <span className="text-accent">{formatCurrency(parseInt(formData.amount))} ({(parseFloat(formData.amount) / coinDetails.price).toFixed(2)} {coinDetails.symbol})</span><img src={coinDetails.logo} className="inline mx-0.5 size-5 xl:size-6" alt={coinDetails.name} />.</p>
                   }
                 </>
               }

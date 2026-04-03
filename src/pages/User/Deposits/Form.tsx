@@ -59,7 +59,7 @@ export default function Form() {
     const data: createRequest = {
       coin: formData.coin,
       amount: Number(formData.amount),
-      coinAmount: Number((parseFloat(formData.amount) / (Math.ceil(coinDetails.price * 100) / 100)).toFixed(2)),
+      coinAmount: Number((parseFloat(formData.amount) / (coinDetails.price)).toFixed(2)),
       notes: formData.notes.trim().length > 0 ? formData.notes : undefined
     };
     toast("Creating bank transfer request...")
@@ -123,7 +123,7 @@ export default function Form() {
               {isError && <Refresh className="size-4 text-accent animate-spin" onClick={refetch} />}
 
               {(!loading && !fetching && !isError) &&
-                <p className="text-[11px] md:text-xs xl:text-sm montserrat">You are depositing <span className="text-accent">{formatCurrency(parseInt(formData.amount))} ({(parseInt(formData.amount) / coinDetails.price).toFixed(2)} {coinDetails.symbol})</span><img src={coinDetails.logo} className="inline mx-0.5 size-5 xl:size-6" alt={coinDetails.name} />.</p>
+                <p className="text-[11px] md:text-xs xl:text-sm montserrat">You are depositing <span className="text-accent">{formatCurrency(parseInt(formData.amount))} ({(parseFloat(formData.amount) / coinDetails.price).toFixed(2)} {coinDetails.symbol})</span><img src={coinDetails.logo} className="inline mx-0.5 size-5 xl:size-6" alt={coinDetails.name} />.</p>
               }
             </>
           }

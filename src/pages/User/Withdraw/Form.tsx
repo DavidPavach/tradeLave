@@ -45,7 +45,6 @@ export default function Form() {
     })
 
     const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
-    console.log("The error", validationErrors)
     const coinDetails = getCoinDetails(formData.coin);
 
     const selectedCoin = COINS.find((c) => c.name === formData.coin)
@@ -99,7 +98,7 @@ export default function Form() {
         // Balance Check (Only run if we have coinDetails and a valid amount)
         if (coinDetails && formData.amount) {
             const inputAmount = parseFloat(formData.amount);
-            const coinPrice = Math.ceil(coinDetails.price * 100) / 100;
+            const coinPrice = parseFloat((coinDetails.price).toFixed(2));
             const requestedCoinAmount = inputAmount / coinPrice;
 
             if (coinDetails.userBalance < requestedCoinAmount) {
@@ -130,7 +129,7 @@ export default function Form() {
         }
 
         const inputAmount = parseFloat(formData.amount);
-        const roundedPrice = Math.ceil(coinDetails.price * 100) / 100;
+        const roundedPrice = parseFloat(coinDetails.price.toFixed(2));
 
         const submissionData = {
             ...formData,
