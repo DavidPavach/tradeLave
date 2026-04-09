@@ -141,7 +141,7 @@ const Form = ({ plans }: { plans: Plans[] }) => {
                     </span>
                     <Input type="number" disabled={newInvestment.isPending} value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" className="pl-8 montserrat" />
                 </div>
-                {selectedPlan !== undefined && <p className="mt-2 text-[11px] text-yellow-700 dark:text-yellow-500 md:text-xs xl:text-sm capitalize montserrat">Min: {formatCurrency(selectedPlan.minValue)} .... Max: {formatCurrency(selectedPlan.maxValue)} .... Your {meta.name} Balance {formatCurrency(meta.userBalance)} </p>}
+                {selectedPlan !== undefined && <p className="mt-2 text-[11px] text-yellow-700 dark:text-yellow-500 md:text-xs xl:text-sm capitalize montserrat">Min: {formatCurrency(selectedPlan.minValue)} .... Max: {formatCurrency(selectedPlan.maxValue)} .... Your {meta.name} Balance {formatCurrency(meta.usdEquiv)} </p>}
             </div>
 
             {/* Submit */}
