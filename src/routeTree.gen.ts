@@ -30,6 +30,7 @@ import { Route as DashboardDepositRouteImport } from './routes/_dashboard/deposi
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 import { Route as DashboardCoinRouteImport } from './routes/_dashboard/coin'
 import { Route as AuthSkipRouteImport } from './routes/_auth/skip'
+import { Route as AuthSectorRouteImport } from './routes/_auth/sector'
 import { Route as AuthOperationsRouteImport } from './routes/_auth/operations'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AuthKycRouteImport } from './routes/_auth/kyc'
@@ -146,6 +147,11 @@ const AuthSkipRoute = AuthSkipRouteImport.update({
   path: '/skip',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AuthSectorRoute = AuthSectorRouteImport.update({
+  id: '/sector',
+  path: '/sector',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthOperationsRoute = AuthOperationsRouteImport.update({
   id: '/operations',
   path: '/operations',
@@ -232,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/kyc': typeof AuthKycRoute
   '/login': typeof AuthLoginRoute
   '/operations': typeof AuthOperationsRoute
+  '/sector': typeof AuthSectorRoute
   '/skip': typeof AuthSkipRoute
   '/coin': typeof DashboardCoinRoute
   '/dashboard': typeof DashboardDashboardRoute
@@ -265,6 +272,7 @@ export interface FileRoutesByTo {
   '/kyc': typeof AuthKycRoute
   '/login': typeof AuthLoginRoute
   '/operations': typeof AuthOperationsRoute
+  '/sector': typeof AuthSectorRoute
   '/skip': typeof AuthSkipRoute
   '/coin': typeof DashboardCoinRoute
   '/dashboard': typeof DashboardDashboardRoute
@@ -303,6 +311,7 @@ export interface FileRoutesById {
   '/_auth/kyc': typeof AuthKycRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/operations': typeof AuthOperationsRoute
+  '/_auth/sector': typeof AuthSectorRoute
   '/_auth/skip': typeof AuthSkipRoute
   '/_dashboard/coin': typeof DashboardCoinRoute
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
@@ -338,6 +347,7 @@ export interface FileRouteTypes {
     | '/kyc'
     | '/login'
     | '/operations'
+    | '/sector'
     | '/skip'
     | '/coin'
     | '/dashboard'
@@ -371,6 +381,7 @@ export interface FileRouteTypes {
     | '/kyc'
     | '/login'
     | '/operations'
+    | '/sector'
     | '/skip'
     | '/coin'
     | '/dashboard'
@@ -408,6 +419,7 @@ export interface FileRouteTypes {
     | '/_auth/kyc'
     | '/_auth/login'
     | '/_auth/operations'
+    | '/_auth/sector'
     | '/_auth/skip'
     | '/_dashboard/coin'
     | '/_dashboard/dashboard'
@@ -583,6 +595,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSkipRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_auth/sector': {
+      id: '/_auth/sector'
+      path: '/sector'
+      fullPath: '/sector'
+      preLoaderRoute: typeof AuthSectorRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_auth/operations': {
       id: '/_auth/operations'
       path: '/operations'
@@ -718,6 +737,7 @@ interface AuthRouteRouteChildren {
   AuthKycRoute: typeof AuthKycRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthOperationsRoute: typeof AuthOperationsRoute
+  AuthSectorRoute: typeof AuthSectorRoute
   AuthSkipRoute: typeof AuthSkipRoute
 }
 
@@ -727,6 +747,7 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthKycRoute: AuthKycRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthOperationsRoute: AuthOperationsRoute,
+  AuthSectorRoute: AuthSectorRoute,
   AuthSkipRoute: AuthSkipRoute,
 }
 

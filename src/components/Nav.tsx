@@ -1,10 +1,13 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Icons
-import { Graph, Home3, Logout, Profile, Receipt1, WalletAdd, DocumentText, Discover } from "iconsax-reactjs";
+// Stores
+import useSectorStore from "@/stores/sector.store";
 
-const NAV_LINKS = [
+// Icons
+import { Graph, Briefcase, Home3, Logout, Profile, Receipt1, WalletAdd, DocumentText, Discover, GlobalSearch, Candle } from "iconsax-reactjs";
+
+const INVESTMENT_NAV_LINKS = [
     { href: "/dashboard", icon: Home3, label: "Dashboard" },
     { href: "/discover", icon: Discover, label: "Discover" },
     { href: "/deposit", icon: WalletAdd, label: "Deposit" },
@@ -14,7 +17,7 @@ const NAV_LINKS = [
     { href: "/profile", icon: Profile, label: "Profile" },
 ];
 
-const BOTTOM_NAV_LINKS = [
+const INVESTMENT_BOTTOM_NAV_LINKS = [
     { href: "/dashboard", icon: Home3, label: "Dashboard" },
     { href: "/deposit", icon: WalletAdd, label: "Deposit" },
     { href: "/stakes", icon: Graph, label: "Stakes" },
@@ -22,8 +25,17 @@ const BOTTOM_NAV_LINKS = [
     { href: "/profile", icon: Profile, label: "Profile" },
 ];
 
+const STOCKS_NAV_LINKS = [
+    { href: "/stocks", icon: GlobalSearch, label: "Stocks" },
+    { href: "/buy-stocks", icon: Candle, label: "Buy Stocks" },
+    { href: "/assets", icon: Briefcase, label: "My Asset" },
+]
+
 
 export const SideNav = () => {
+
+    const { selectedSector } = useSectorStore();
+    const NAV_LINKS = selectedSector === "investment" ? INVESTMENT_NAV_LINKS : STOCKS_NAV_LINKS;
 
     const location = useLocation();
 
@@ -76,7 +88,7 @@ const NavItem = ({ href, icon: Icon, label }: NavItem) => {
                 )}
 
                 {/* Icon */}
-                <motion.div layout className={`relative z-10 rounded-full p-2 ${isActive ? "text-primary-foreground" : "text-foreground hover:text-primary" }`} whileTap={{ scale: 0.9 }}>
+                <motion.div layout className={`relative z-10 rounded-full p-2 ${isActive ? "text-primary-foreground" : "text-foreground hover:text-primary"}`} whileTap={{ scale: 0.9 }}>
                     <Icon size="24" variant="Bold" />
                 </motion.div>
 
@@ -95,6 +107,10 @@ const NavItem = ({ href, icon: Icon, label }: NavItem) => {
 };
 
 export const BottomNav = () => {
+
+    const { selectedSector } = useSectorStore();
+    const BOTTOM_NAV_LINKS = selectedSector === "investment" ? INVESTMENT_BOTTOM_NAV_LINKS : STOCKS_NAV_LINKS;
+
     return (
         <nav className="lg:hidden bottom-0 left-0 z-50 fixed bg-background p-2 w-full">
             <div className="flex justify-between items-center bg-white dark:bg-black p-2 rounded-[2rem]">
