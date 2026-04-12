@@ -53,7 +53,7 @@ const Form = ({ plans }: { plans: Plans[] }) => {
         if (selectedPlan.maxValue < parseFloat(amount)) return toast.warning(`The entered amount is less than ${formatCurrency(selectedPlan.maxValue)}`);
 
         // Check coin balance
-        if (meta.userBalance < parseFloat(amount)) return toast.error(`You can't take amount higher than your ${meta.name.toUpperCase()} balance.`)
+        if (meta.usdEquiv < parseFloat(amount)) return toast.error(`You can't stake amount higher than your ${meta.name.toUpperCase()} balance.`)
 
         const formData = { 
             coin: coin as TransactionCoin, 
