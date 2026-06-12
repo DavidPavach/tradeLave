@@ -15,9 +15,9 @@ const Index = () => {
     const [page, setPage] = useState(1);
     const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
 
-    const { data, isLoading, isFetching, isError, refetch } = useUserAllTxs(page, 50);
+    const { data, isLoading, isError, refetch } = useUserAllTxs(page, 50);
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <main className="space-y-4 bg-background p-6 h-[80vh]">
                 {Array.from({ length: 6 }).map((_, i) => (

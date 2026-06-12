@@ -44,6 +44,41 @@ declare type TxPayload = {
   status: string;
 };
 
+// Bank Transfer Request Type
+declare type DepositRequest = {
+  _id: string,
+  coin: string,
+  amount: number,
+  coinAmount: number,
+  status: "pending" | "successful" | "failed" | "closed",
+  hasPaid: boolean,
+  details: {
+    admin?: Array<{ message: string; at: string, file?: string }>
+    user?: Array<{ message: string; at: string, file?: string }>
+  },
+  createdAt: Date,
+  updatedAt: Date,
+}
+
+type DepositMessage = {
+  message: string,
+  at: string,
+  file?: string
+}
+
+// Bank Transfer Request Details Props
+declare type DepositRequestDetailsProps = {
+  request: {
+    _id: string,
+    details: {
+      admin?: DepositMessage[],
+      user?: DepositMessage[],
+    }
+    hasPaid: boolean,
+    status: string,
+  }
+}
+
 // Plans
 declare type Plans = {
   _id: string;
@@ -110,6 +145,80 @@ declare type Referral = {
     profilePicture?: string;
   };
 }
+
+// Stock History
+
+type StockTxType = 'DEPOSIT' | 'WITHDRAWAL' | 'BUY' | 'SELL' | 'TRADE_SETTLEMENT';
+type StockTxStats = 'PENDING' | 'APPROVED' | 'REJECTED' | 'COMPLETED';
+
+declare type StockTxs = {
+  _id: string;
+  userId: string;
+  type: StockTxType;
+  status: StockTxStats;
+  usdAmount: number;
+
+  cryptoSymbol?: 'bitcoin' | 'ethereum' | 'tether trc20' | 'tether erc20';
+  cryptoAmount?: number;
+  walletAddress?: string;
+  hash?: string;
+
+  stockSymbol?: string;
+  shares?: number;
+  pricePerShare?: number;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Portfolio
+type CryptoAsset = {
+  symbol: string;
+  amount: number;
+  livePriceUsd: number;
+  totalValueUsd: number;
+}
+
+type Stock = {
+  symbol: string;
+  shares: number;
+  livePriceUsd: number;
+  totalValueUsd: number;
+}
+
+type Assets = {
+  crypto: CryptoAsset[];
+  stocks: Stock[];
+}
+
+type Volumes = {
+  totalDeposits: number;
+  totalWithdrawals: number;
+}
+
+type Summary = {
+  totalCryptoValueUsd: number;
+  totalStockValueUsd: number;
+  totalPortfolioValueUsd: number;
+}
+
+declare type Portfolio = {
+  assets: Assets;
+  recentActivity: StockTxType[];
+  summary: Summary;
+  volumes: Volumes;
+};
+
+// Settings
+declare type Settings = {
+  createdAt: string;
+  minShares: number;
+  noWithdrawal: boolean;
+  sharePrice: number;
+  updatedAt: string;
+  _id: string;
+};
+
 
 // Admin
 declare type UserBrief = {

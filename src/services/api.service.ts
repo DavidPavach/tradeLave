@@ -155,7 +155,7 @@ export const getAllIntsFn = async (page?: number, limit?: number) => {
 
 // Update Profile Picture
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const updateProfilePicture = async (data: FormData): Promise<any> => {
+export const updateProfilePictureFn = async (data: FormData): Promise<any> => {
     const response = await axiosUser.patch(`users/updateProfilePicture`, data, {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -166,7 +166,7 @@ export const updateProfilePicture = async (data: FormData): Promise<any> => {
 
 // Update Other Details
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const updateDetails = async (data: any): Promise<any> => {
+export const updateDetailsFn = async (data: any): Promise<any> => {
     const response = await axiosUser.patch(`users/update`, data);
     return response.data;
 }
@@ -177,6 +177,65 @@ export const getUserReferralFn = async () => {
     return response.data;
 }
 
+// Fetch User Stock Balance
+export const getStockBalanceFn = async () => {
+    const response = await axiosUser.get(`stocks/balance`);
+    return response.data;
+}
+
+// Fetch Stock Prices
+export const getStockPricesFn = async () => {
+    const response = await axiosUser.get(`stocks/stock-prices`);
+    return response.data;
+}
+
+// Create New Deposit
+export const newDepositFn = async (data: NewStockDeposit) => {
+    const response = await axiosUser.post(`stocks/deposit`, data);
+    return response.data;
+}
+
+// Create New Withdrawal
+export const newWithdrawalFn = async (data: NewStockWithdrawal) => {
+    const response = await axiosUser.post(`stocks/withdraw`, data);
+    return response.data;
+}
+
+// Fetch Stock History
+export const stockHistoryFn = async (page?: number, limit?: number) => {
+    const response = await axiosUser.get(`stocks/my-history?page=${page}&limit=${limit}`);
+    return response.data;
+}
+
+// Fetch Portfolio
+export const portfolioFn = async () => {
+    const response = await axiosUser.get(`stocks/portfolio`);
+    return response.data;
+}
+
+// Buy Share
+export const buyShareFn = async (data: BuyShares) => {
+    const response = await axiosUser.post(`stocks/trade/buy`, data);
+    return response.data;
+}
+
+// Sell Share
+export const sellShareFn = async (data: SellShares) => {
+    const response = await axiosUser.post(`stocks/trade/sell`, data);
+    return response.data;
+}
+
+// Fetch Stock Transactions
+export const fetchShareTxsFn = async (symbol: string) => {
+    const response = await axiosUser.get(`stocks/history/${symbol}`);
+    return response.data;
+}
+
+// Fetch the Settings
+export const fetchSettingsFn = async () => {
+    const response = await axiosUser.get(`settings/get`);
+    return response.data;
+}
 
 // Administration
 

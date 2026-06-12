@@ -10,7 +10,7 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 
 //Icons
-import { Clock, DirectInbox, Gift, MoneyForbidden, MoneyRecive, Moneys, MoneySend, NotificationBing, Settings, StatusUp, Trash, WalletAdd } from 'iconsax-reactjs';
+import { Clock, Coin1, DirectboxReceive, DirectInbox, Gift, MoneyForbidden, MoneyRecive, Moneys, MoneySend, NotificationBing, Send2, Settings, StatusUp, Trash, TrendDown, TrendUp, WalletAdd } from 'iconsax-reactjs';
 import { AlertTriangle, DollarSign, Info, X } from 'lucide-react';
 
 
@@ -27,23 +27,33 @@ export const BellIcon = () => {
             case "transaction":
                 switch (subType?.toLowerCase()) {
                     case "deposit_request":
-                        return <WalletAdd className="size-5 text-amber-500" />;
+                        return <WalletAdd className="size-4 md:size-4.5 xl:size-5 text-amber-500" />;
+                    case "stock_deposit":
+                        return <DirectboxReceive className='size-4 md:size-4.5 xl:size-5 text-emerald-500' />;
+                    case "stock_withdrawal":
+                        return <Send2 className="size-4 md:size-4.5 xl:size-5 text-destructive" />;
+                    case "stock_buy":
+                        return <TrendUp className='size-4 md:size-4.5 xl:size-5 text-amber-500' />;
+                    case "stock_sell":
+                        return <TrendDown className='size-4 md:size-4.5 xl:size-5 text-destructive' />;
+                    case "stock_settlement":
+                        return <Coin1 className='size-4 md:size-4.5 xl:size-5 text-primary' />;
                     case "deposit":
-                        return <MoneyRecive className="size-5 text-emerald-500" />;
+                        return <MoneyRecive className="size-4 md:size-4.5 xl:size-5 text-emerald-500" />;
                     case "withdrawal":
-                        return <MoneySend className="size-5 text-destructive" />;
+                        return <MoneySend className="size-4 md:size-4.5 xl:size-5 text-destructive" />;
                     case "bonus":
-                        return <Moneys className="size-5 text-emerald-500" />;
+                        return <Moneys className="size-4 md:size-4.5 xl:size-5 text-emerald-500" />;
                     case "penalty":
-                        return <MoneyForbidden className="size-5 text-destructive" />;
+                        return <MoneyForbidden className="size-4 md:size-4.5 xl:size-5 text-destructive" />;
                     case "referral":
-                        return <Gift className="size-5 text-pink-500" />;
+                        return <Gift className="size-4 md:size-4.5 xl:size-5 text-pink-500" />;
                     case "stake":
-                        return <StatusUp className="size-5 text-[#16A34A]" />;
+                        return <StatusUp className="size-4 md:size-4.5 xl:size-5 text-[#16A34A]" />;
                     case "roi":
-                        return <DirectInbox className="size-5 text-fuchsia-500" />;
+                        return <DirectInbox className="size-4 md:size-4.5 xl:size-5 text-fuchsia-500" />;
                     default:
-                        return <DollarSign className="size-5 text-emerald-500" />;
+                        return <DollarSign className="size-4 md:size-4.5 xl:size-5 text-emerald-500" />;
                 }
 
             case "system":
@@ -98,7 +108,7 @@ export const BellIcon = () => {
     const closePanel = () => setOpen(false);
 
     return (
-        <div className="relative">
+        <div className="z-10 relative">
             <button className="relative" onClick={toggleOpen}>
                 <NotificationBing variant='Bold' className={`text-foreground size-5 md:size-6 xl:size-6 cursor-pointer ${notifications.length > 0 && "animate-shake"}`} />
                 {notifications.length > 0 && (
@@ -158,7 +168,7 @@ export const BellIcon = () => {
                                                 transition={{ duration: 0.18 }} className="relative">
                                                 <div className={`group relative flex gap-3 border-l-2 px-4 py-4 transition-colors ${styles.wrapper}`}>
                                                     <span className={`absolute left-0 top-0 h-full w-[2px] ${styles.accent}`} />
-                                                    <div className="flex justify-center items-center bg-background shadow-sm mt-0.5 border border-border rounded-xl size-10 shrink-0">
+                                                    <div className="flex justify-center items-center bg-background shadow-sm mt-0.5 border border-border rounded-xl size-8 md:size-9 xl:size-10 shrink-0">
                                                         {getNotificationIcon(n.type, n.subType)}
                                                     </div>
 
@@ -181,7 +191,7 @@ export const BellIcon = () => {
                                                             </button>
                                                         </div>
 
-                                                        <p className="mt-2 text-muted-foreground text-sm line-clamp-3 leading-6">
+                                                        <p className="mt-2 text-muted-foreground text-sm line-clamp-3 leading-6 montserrat">
                                                             {n.message}
                                                         </p>
                                                     </div>

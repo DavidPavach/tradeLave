@@ -5,19 +5,156 @@ import { motion, AnimatePresence } from "framer-motion";
 import useSectorStore from "@/stores/sector.store";
 
 // Icons
-import { Graph, Briefcase, Home3, Logout, Profile, Receipt1, WalletAdd, DocumentText, Discover, GlobalSearch, Candle } from "iconsax-reactjs";
+import { Graph, Briefcase, Home3, Logout, Profile, Receipt1, WalletAdd, DocumentText, Discover, GlobalSearch, Candle, StatusUp, TrendUp, ProfileCircle, WalletMinus, Wallet1, Element4, Icon } from "iconsax-reactjs";
 
-const INVESTMENT_NAV_LINKS = [
-    { href: "/dashboard", icon: Home3, label: "Dashboard" },
-    { href: "/discover", icon: Discover, label: "Discover" },
-    { href: "/deposit", icon: WalletAdd, label: "Deposit" },
-    { href: "/stakes", icon: Graph, label: "Stakes" },
-    { href: "/strategies", icon: DocumentText, label: "Strategies" },
-    { href: "/history", icon: Receipt1, label: "History" },
-    { href: "/profile", icon: Profile, label: "Profile" },
+type NavSection = {
+    id: string;
+    title: string;
+    icon: Icon;
+    links: {
+        href: string;
+        icon: Icon;
+        label: string;
+        subText?: string;
+    }[];
+};
+
+const CRYPTOCURRENCY_NAV_SECTIONS: NavSection[] = [
+    {
+        id: "overview",
+        title: "Overview",
+        icon: Element4,
+        links: [
+            {
+                href: "/dashboard",
+                icon: Home3,
+                label: "Dashboard",
+            },
+            {
+                href: "/discover",
+                icon: Discover,
+                label: "Discover",
+                subText: "New",
+            },
+        ],
+    },
+    {
+        id: "portfolio",
+        title: "Portfolio",
+        icon: Graph,
+        links: [
+            {
+                href: "/stakes",
+                icon: Graph,
+                label: "Stakes",
+            },
+            {
+                href: "/strategies",
+                icon: DocumentText,
+                label: "Strategies",
+                subText: "Pro",
+            },
+            {
+                href: "/history",
+                icon: Receipt1,
+                label: "History",
+            },
+        ],
+    },
+    {
+        id: "wallet",
+        title: "Wallet & Funds",
+        icon: Wallet1,
+        links: [
+            {
+                href: "/deposit",
+                icon: WalletAdd,
+                label: "Deposit",
+            },
+            {
+                href: "/withdraw",
+                icon: WalletMinus,
+                label: "Withdrawal",
+            },
+        ],
+    },
+    {
+        id: "account",
+        title: "Account",
+        icon: ProfileCircle,
+        links: [
+            {
+                href: "/profile",
+                icon: Profile,
+                label: "Profile",
+            },
+        ],
+    },
 ];
 
-const INVESTMENT_BOTTOM_NAV_LINKS = [
+const STOCKS_NAV_SECTIONS: NavSection[] = [
+    {
+        id: "market",
+        title: "Market",
+        icon: TrendUp,
+        links: [
+            {
+                href: "/stocks",
+                icon: GlobalSearch,
+                label: "Stocks",
+                subText: "Live",
+            },
+            {
+                href: "/buy-stocks",
+                icon: Candle,
+                label: "Buy Stocks",
+            },
+            {
+                href: "/market-trends",
+                icon: TrendUp,
+                label: "Market Trends",
+                subText: "Hot",
+            },
+        ],
+    },
+    {
+        id: "wallet",
+        title: "Wallet & Funds",
+        icon: Wallet1,
+        links: [
+            {
+                href: "/stock-deposit",
+                icon: WalletAdd,
+                label: "Deposit",
+            },
+            {
+                href: "/stock-withdraw",
+                icon: WalletMinus,
+                label: "Withdrawal",
+            },
+        ],
+    },
+    {
+        id: "portfolio",
+        title: "Assets",
+        icon: Briefcase,
+        links: [
+            {
+                href: "/portfolio",
+                icon: Briefcase,
+                label: "Portfolio",
+            },
+            {
+                href: "/watchlist",
+                icon: StatusUp,
+                label: "Watchlist",
+                subText: "Pro",
+            },
+        ],
+    }
+];
+
+const CRYPTOCURRENCY_BOTTOM_NAV_LINKS = [
     { href: "/dashboard", icon: Home3, label: "Dashboard" },
     { href: "/deposit", icon: WalletAdd, label: "Deposit" },
     { href: "/stakes", icon: Graph, label: "Stakes" },
@@ -27,47 +164,140 @@ const INVESTMENT_BOTTOM_NAV_LINKS = [
 
 const STOCKS_NAV_LINKS = [
     { href: "/stocks", icon: GlobalSearch, label: "Stocks" },
+    { href: "/stock-deposit", icon: WalletAdd, label: "Deposit" },
     { href: "/buy-stocks", icon: Candle, label: "Buy Stocks" },
-    { href: "/assets", icon: Briefcase, label: "My Asset" },
+    { href: "/portfolio", icon: Briefcase, label: "Portfolio" },
+    { href: "/watchlist", icon: StatusUp, label: "Watchlist" },
 ]
 
 
 export const SideNav = () => {
-
     const { selectedSector } = useSectorStore();
-    const NAV_LINKS = selectedSector === "investment" ? INVESTMENT_NAV_LINKS : STOCKS_NAV_LINKS;
+
+    const NAV_SECTIONS =
+        selectedSector === "cryptocurrency"
+            ? CRYPTOCURRENCY_NAV_SECTIONS
+            : STOCKS_NAV_SECTIONS;
 
     const location = useLocation();
 
     return (
-        <main className="hidden lg:block fixed bg-background border-border border-r lg:w-[20rem] h-dvh text-foreground">
-            <p className="mt-3.5 px-4 pb-5 xl:pb-4 border-border border-b font-semibold text-xl xl:text-2xl tracking-tight montserrat">TRADE <span className="text-primary">LAVE</span></p>
-            <div className="flex flex-col gap-y-5 mt-10 p-4">
-                {NAV_LINKS.map((link) => {
-                    const IconComponent = link.icon;
-                    const isActive = location.href === link.href;
+        <main className="hidden fixed lg:flex flex-col bg-background border-border border-r w-[20rem] h-dvh text-foreground">
+            {/* Logo */}
+            <div className="mt-3 px-5 pb-2.5 border-border border-b">
+                <div className="flex items-center gap-x-2">
+                    <img src="/logo.png" alt="logo" className="size-10 object-contain" />
+
+                    <p className="font-bold text-xl xl:text-2xl tracking-tight montserrat">
+                        TRADE <span className="text-primary">LAVE</span>
+                    </p>
+                </div>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex flex-col flex-1 gap-y-6 mt-6 p-4 overflow-y-auto">
+                {NAV_SECTIONS.map((section) => {
+                    const SectionIcon = section.icon;
 
                     return (
-                        <Link activeProps={{ className: "bg-primary text-black font-semibold rounded-[3rem]" }} to={link.href} key={link.label}>
-                            <motion.button className={`flex items-center gap-x-2 w-full px-4 py-2.5 rounded-[3rem] cursor-pointer transition-all duration-300 hover:bg-primary/30`}>
-                                <IconComponent className="size-6" variant={isActive ? "Bold" : "Outline"} />
-                                <p>{link.label}</p>
-                            </motion.button>
-                        </Link>
-                    )
+                        <div
+                            key={section.id}
+                            className="flex flex-col gap-y-3"
+                        >
+                            {/* Section title */}
+                            <div className="flex items-center gap-x-2 px-2 font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+                                <SectionIcon
+                                    className="size-4"
+                                    variant="Bold"
+                                />
+
+                                <p>{section.title}</p>
+                            </div>
+
+                            {/* Links */}
+                            <div className="flex flex-col gap-y-2">
+                                {section.links.map((link) => {
+                                    const LinkIcon = link.icon;
+
+                                    const isActive =
+                                        location.pathname === link.href;
+
+                                    return (
+                                        <Link
+                                            key={link.label}
+                                            to={link.href}
+                                            activeProps={{
+                                                className:
+                                                    "bg-primary text-black font-semibold rounded-[3rem]",
+                                            }}
+                                        >
+                                            <motion.button
+                                                whileTap={{ scale: 0.98 }}
+                                                className="flex items-center gap-x-3 hover:bg-primary/20 px-4 py-3 rounded-[3rem] w-full transition-all duration-300 cursor-pointer"
+                                            >
+                                                <LinkIcon
+                                                    className="size-5"
+                                                    variant={
+                                                        isActive
+                                                            ? "Bold"
+                                                            : "Outline"
+                                                    }
+                                                />
+
+                                                <p className="text-sm">
+                                                    {link.label}
+                                                </p>
+
+                                                {link.subText && (
+                                                    <div
+                                                        className={`px-2.5 py-1 ml-auto text-[10px] font-semibold rounded-full
+                                                        ${link.subText ===
+                                                                "Live"
+                                                                ? "bg-green-500 text-white animate-pulse"
+                                                                : link.subText ===
+                                                                    "Pro"
+                                                                    ? "bg-purple-500 text-white"
+                                                                    : link.subText ===
+                                                                        "Hot"
+                                                                        ? "bg-orange-500 text-white"
+                                                                        : "bg-primary text-black"
+                                                            }`}
+                                                    >
+                                                        {link.subText}
+                                                    </div>
+                                                )}
+                                            </motion.button>
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    );
                 })}
             </div>
-            <div className="bottom-4 absolute w-full">
-                <Link to="/logout" activeProps={{ className: "bg-primary text-black font-semibold rounded-[3rem]" }}>
-                    <motion.button className={`flex items-center gap-x-2 w-[90%] px-4 py-2.5 rounded-[3rem] cursor-pointer transition-all duration-300 hover:bg-primary/30`}>
-                        <Logout className="size-6" />
-                        <p>Logout</p>
+
+            {/* Logout */}
+            <div className="p-4 border-border border-t">
+                <Link
+                    to="/logout"
+                    activeProps={{
+                        className:
+                            "bg-primary text-black font-semibold rounded-[3rem]",
+                    }}
+                >
+                    <motion.button
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center gap-x-3 hover:bg-primary/20 px-4 py-3 rounded-[3rem] w-full transition-all duration-300 cursor-pointer"
+                    >
+                        <Logout className="size-5" />
+
+                        <p className="text-sm">Logout</p>
                     </motion.button>
                 </Link>
             </div>
         </main>
     );
-}
+};
 
 
 type NavItem = {
@@ -109,7 +339,7 @@ const NavItem = ({ href, icon: Icon, label }: NavItem) => {
 export const BottomNav = () => {
 
     const { selectedSector } = useSectorStore();
-    const BOTTOM_NAV_LINKS = selectedSector === "investment" ? INVESTMENT_BOTTOM_NAV_LINKS : STOCKS_NAV_LINKS;
+    const BOTTOM_NAV_LINKS = selectedSector === "cryptocurrency" ? CRYPTOCURRENCY_BOTTOM_NAV_LINKS : STOCKS_NAV_LINKS;
 
     return (
         <nav className="lg:hidden bottom-0 left-0 z-50 fixed bg-background p-2 w-full">

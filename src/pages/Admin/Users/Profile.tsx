@@ -39,7 +39,7 @@ const defaultBalance = {
 export default function Profile({ profile }: { profile: User }) {
 
 
-    const { data, isLoading, isFetching, isError, refetch } = useAdminUserBalance(profile._id);
+    const { data, isLoading, isError, refetch } = useAdminUserBalance(profile._id);
     const { data: PricesData } = usePrices();
 
     const userData: UserBalance = data?.data || defaultBalance;
@@ -231,7 +231,7 @@ export default function Profile({ profile }: { profile: User }) {
                                         <Separator className="my-2" />
 
                                         <p className="mt-4 font-semibold text-base md:text-lg xl:text-xl capitalize">User Balance</p>
-                                        {(isLoading || isFetching) &&
+                                        {(isLoading) &&
                                             <Loader className="size-5 md:size-6 xl:size-7 animate-spin" />
                                         }
                                         {isError &&

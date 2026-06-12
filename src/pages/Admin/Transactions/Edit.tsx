@@ -47,7 +47,7 @@ const Editing = ({ tx, isOpen, onClose }: { tx: AdminTx, isOpen: boolean, onClos
                     <Input id="user" value={tx.user.userName} disabled />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="receiver">Coin</Label>
+                    <Label>Coin</Label>
                     <div className="flex items-center gap-x-2 bg-transparent dark:bg-input/30 px-3 py-2 border border-border rounded-lg">
                         <img src={meta.logo} alt={meta.name + " logo"} className="size-6 md:size-7" />
                         <p className="capitalize">{meta.symbol}</p>

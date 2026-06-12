@@ -35,41 +35,6 @@ declare type createRequest = {
     notes: string | undefined,
 }
 
-// Bank Transfer Request Type
-declare type DepositRequest = {
-    _id: string,
-    coin: string,
-    amount: number,
-    coinAmount: number,
-    status: "pending" | "successful" | "failed" | "closed",
-    hasPaid: boolean,
-    details: {
-        admin?: Array<{ message: string; at: string }>
-        user?: Array<{ message: string; at: string }>
-    },
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-type DepositMessage = {
-    message: string,
-    at: string,
-    file?: string
-}
-
-// Bank Transfer Request Details Props
-declare type DepositRequestDetailsProps = {
-    request: {
-        _id: string,
-        details: {
-            admin?: DepositMessage[],
-            user?: DepositMessage[],
-        }
-        hasPaid: boolean,
-        status: string,
-    }
-}
-
 // Patch Deposit Details
 declare type patchDepositDetails = {
     depositId: string,
@@ -80,7 +45,7 @@ declare type patchDepositDetails = {
     }
 }
 
-//News
+// News
 declare type NewsArticle = {
     article_id: string;
     title: string;
@@ -91,6 +56,37 @@ declare type NewsArticle = {
     category?: string[];
     image_url?: string;
 }
+
+// Stocks
+declare type NewStockDeposit = {
+    cryptoSymbol: string,
+    cryptoAmount: number,
+    usdEquivalent: number,
+}
+
+declare type NewStockWithdrawal = {
+    cryptoSymbol: string,
+    cryptoAmount: number,
+    walletAddress: string,
+    usdEquivalent: number,
+}
+
+// Buy Stocks
+declare type BuyShares = {
+    stockSymbol: string,
+    usdInvestmentAmount: number,
+    cryptoSymbol: string,
+    currentPrice: number,
+}
+
+// Sell Stocks
+declare type SellShares = {
+    stockSymbol: string,
+    sharesToSell: number,
+    cryptoSymbol: string,
+    currentPrice: number,
+}
+
 
 
 // Administration

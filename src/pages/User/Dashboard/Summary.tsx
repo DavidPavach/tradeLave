@@ -11,8 +11,8 @@ import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 //Icons
-import { Loader2 } from "lucide-react";
-import { WalletAdd, Copy, CopySuccess, Eye, EyeSlash, Graph, Send2, Receipt1, Wallet1, Activity, HomeTrendUp, Gift } from "iconsax-reactjs";
+import { CircleCheckBig, Loader2 } from "lucide-react";
+import { WalletAdd, Copy, CopySuccess, Eye, EyeSlash, Graph, Send2, Receipt1, Wallet1, HomeTrendUp, Gift } from "iconsax-reactjs";
 
 
 type BalanceSummaryProps = {
@@ -69,7 +69,10 @@ const BalanceSummary = ({ walletId, balance, isLoading }: BalanceSummaryProps) =
                         <div className="bg-border rounded w-24 h-8 animate-pulse"></div>
                     </div>
                 ) : (
-                    <h2 className="font-bold text-3xl md:text-4xl xl:text-5xl">{see ? balance : "****"}</h2>
+                    <>
+                        <h2 className="font-bold text-3xl md:text-4xl xl:text-5xl">{see ? balance : "****"}</h2>
+                        <p className="bg-muted mt-2 px-2 py-0.5 rounded-full w-fit text-[11px] text-muted-foreground md:text-xs xl:text-sm animate-pulse"><CircleCheckBig className="inline mr-0 size-3 md:size-3.5 xl:size-4 text-green-500" /> Available For Withdrawal</p>
+                    </>
                 )}
             </div>
 
@@ -99,8 +102,8 @@ const CardSummary = ({ title, Icon, figure, isLoading }: CardSummaryProps) => {
     return (
         <Card>
             <CardHeader className="flex flex-row justify-between items-center space-y-0">
-                <CardTitle className="font-medium text-base md:text-lg xl:text-xl">{title}</CardTitle>
-                <Icon variant="Bulk" className="bg-primary/10 p-2 rounded-lg size-8 md:size-9 xl:size-10 text-primary" />
+                <CardTitle className="font-medium text-sm sm:text-base md:text-lg xl:text-xl truncate">{title}</CardTitle>
+                <Icon variant="Bold" className="bg-primary/10 p-2 rounded-lg size-8 md:size-9 xl:size-10 text-primary" />
             </CardHeader>
             <CardContent>
                 {isLoading ? <Skeleton className="w-[100px] h-3" /> :
@@ -114,7 +117,7 @@ const Summary = ({ accountId, totalBalance, activeStakes, totalRois, totalReferr
 
     const CARD_DATA: { title: string; Icon: React.ComponentType<IconsaxIconProps>; figure: string }[] = [
         { title: "Total Balance", Icon: Wallet1, figure: formatCurrency(totalBalance) },
-        { title: "Active Stakes", Icon: Activity, figure: formatCurrency(activeStakes) },
+        { title: "Active Stakes", Icon: Graph, figure: formatCurrency(activeStakes) },
         { title: "Total ROIs", Icon: HomeTrendUp, figure: formatCurrency(totalRois) },
         { title: "Referral Rewards", Icon: Gift, figure: formatCurrency(totalReferrals) },
     ];
@@ -123,7 +126,7 @@ const Summary = ({ accountId, totalBalance, activeStakes, totalRois, totalReferr
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <BalanceSummary walletId={accountId} balance={formatCurrency(totalBalance)} isLoading={false} />
-            <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 mt-4">
+            <div className="gap-4 grid grid-cols-2 xl:grid-cols-4 mt-4">
                 {CARD_DATA.map((card, index) => (
                     <CardSummary key={index} {...card} isLoading={isLoading} />
                 ))}

@@ -37,7 +37,7 @@ export default function SectorCard({ icon: IconComponent, bgIcon: BgIconComponen
 
             {/* CTA Button */}
             <button onClick={onClick}
-                className="flex justify-center items-center gap-2 bg-foreground hover:opacity-90 px-6 py-3 rounded-lg w-full font-semibold text-card transition-opacity">
+                className="flex justify-center items-center gap-2 bg-foreground hover:opacity-90 px-6 py-3 rounded-lg w-full font-semibold text-card transition-opacity cursor-pointer">
                 {buttonLabel}
                 <ArrowRight className="size-4" />
             </button>

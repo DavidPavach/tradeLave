@@ -66,13 +66,13 @@ export default function TransactionItem({ transaction, onClick, index }: Props) 
                 "flex justify-center items-center rounded-xl size-10 group-hover:scale-110 transition-transform shrink-0",
                 typeColorClass
             )}>
-                <Icon className="size-5" />
+                <Icon className="size-4 md:size-4.5 xl:size-5" />
             </div>
 
             {/* Details */}
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-semibold text-foreground text-sm capitalize">{transaction.coin}</h4>
+                    <h4 className="font-semibold text-[11px] md:text-xs xl:text-sm capitalize shrink-0">{transaction.coin}</h4>
 
                     <span
                         className={cn(
@@ -84,14 +84,8 @@ export default function TransactionItem({ transaction, onClick, index }: Props) 
                     </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-muted-foreground text-xs">
-                    {transaction.network &&
-                        <>
-                            <span>{transaction.network}</span>
-                            <span>•</span>
-                        </>
-                    }
-                    <span>{formatDate(transaction.createdAt, 'short')}</span>
+                <div className="text-[10px] text-muted-foreground md:text-[11px] xl:text-xs">
+                    {formatDate(transaction.createdAt, 'short')}
                 </div>
 
                 {/* Optional details line (e.g., transactionHash or details.summary) */}
@@ -105,14 +99,14 @@ export default function TransactionItem({ transaction, onClick, index }: Props) 
             {/* Amount & meta */}
             <div className="ml-2 text-right shrink-0 montserrat">
                 <p className={cn(
-                    "font-bold text-sm",
+                    "font-bold text-[11px] md:text-xs xl:text-sm",
                     transaction.transactionType === 'withdrawal' && "text-red-600",
                     transaction.transactionType === 'deposit' && "text-green-600",
                     transaction.transactionType !== 'deposit' && transaction.transactionType !== 'withdrawal' && "text-foreground"
                 )}>
                     {amountPrefix}{formatCurrency(transaction.amount)}
                 </p>
-                <p className="mt-0.5 text-muted-foreground text-xs">{transaction.coinAmount}</p>
+                <p className="mt-0.5 text-[10px] text-muted-foreground md:text-[11px] xl:text-xs">{transaction.coinAmount.toFixed(2)}</p>
             </div>
         </motion.div>
     );

@@ -16,8 +16,8 @@ import { Eye, EyeSlash, Refresh2 } from "iconsax-reactjs";
 
 const CoinProfile = () => {
 
-    const { data, isLoading, isFetching, refetch, isError } = usePrices();
-    const { data: balanceData, isLoading: isBalanceLoading, isFetching: isBalanceFetching, refetch: refetchBalance, isError: isBalanceError } = useUserBalance();
+    const { data, isLoading, refetch, isError } = usePrices();
+    const { data: balanceData, isLoading: isBalanceLoading, refetch: refetchBalance, isError: isBalanceError } = useUserBalance();
     const [see, setSee] = useState<boolean>(true);
 
     // Functions
@@ -60,13 +60,13 @@ const CoinProfile = () => {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mt-10">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-lg md:text-xl xl:text-2xl">Your Cryptocurrency Portfolio</h1>
+                <h1 className="text-lg md:text-xl xl:text-2xl">Cryptocurrency Portfolio</h1>
                 <div className="flex gap-x-5">
                     {see ? <Eye className="size-5 md:size-6 xl:size-7 hover:text-primary transition-colors cursor-pointer" onClick={toggleSee} /> : <EyeSlash className="size-5 md:size-6 xl:size-7 hover:text-primary transition-colors cursor-pointer" onClick={toggleSee} />}
                     <Refresh2 onClick={() => refetchAll()} className="size-5 md:size-6 xl:size-7 hover:text-primary transition-colors cursor-pointer" />
                 </div>
             </div>
-            {(isFetching || isLoading || isBalanceLoading || isBalanceFetching) && [...Array(7)].map((_, i) => (
+            {(isLoading || isBalanceLoading) && [...Array(7)].map((_, i) => (
                 <section key={`price-skeleton-${i}`} className="flex justify-between items-center my-4">
                     <div className="flex items-center space-x-4">
                         <Skeleton className="rounded-full size-10" />

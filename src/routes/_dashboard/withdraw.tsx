@@ -4,6 +4,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import Withdraw from '@/pages/User/Withdraw';
 
 export const Route = createFileRoute('/_dashboard/withdraw')({
+  head: () => ({
+    meta: [
+      {
+        title: `Withdrawal | Trade Lave`,
+      },
+    ],
+  }),
   component: RouteComponent,
 })
 

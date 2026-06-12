@@ -29,7 +29,7 @@ const Form = () => {
     const [formData, setFormData] = useState(EMPTY_FORM);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const { data, isLoading, isFetching, isError } = useAdminGetUser(userQuery);
+    const { data, isLoading, isError } = useAdminGetUser(userQuery);
 
     const createNotification = useAdminNotification();
 
@@ -93,7 +93,7 @@ const Form = () => {
                 </Label>
                 <Input disabled={isDisabled} value={userQuery} onChange={(e) => setUserQuery(e.target.value)} placeholder="Email, username, or account ID" />
 
-                {(isLoading || isFetching) && (
+                {isLoading && (
                     <div className="flex items-center gap-2 text-sm">
                         <LoaderCircle className="size-4 text-primary animate-spin" />
                         Fetching user…

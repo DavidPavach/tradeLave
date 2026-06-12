@@ -19,16 +19,23 @@ import { Route as HomeLegalRouteImport } from './routes/_home/legal'
 import { Route as HomeContactRouteImport } from './routes/_home/contact'
 import { Route as HomeAboutRouteImport } from './routes/_home/about'
 import { Route as DashboardWithdrawRouteImport } from './routes/_dashboard/withdraw'
+import { Route as DashboardWatchlistRouteImport } from './routes/_dashboard/watchlist'
 import { Route as DashboardStrategiesRouteImport } from './routes/_dashboard/strategies'
+import { Route as DashboardStocksRouteImport } from './routes/_dashboard/stocks'
+import { Route as DashboardStockWithdrawRouteImport } from './routes/_dashboard/stock-withdraw'
+import { Route as DashboardStockDepositRouteImport } from './routes/_dashboard/stock-deposit'
 import { Route as DashboardStakesRouteImport } from './routes/_dashboard/stakes'
 import { Route as DashboardReferralsRouteImport } from './routes/_dashboard/referrals'
 import { Route as DashboardProfileRouteImport } from './routes/_dashboard/profile'
+import { Route as DashboardPortfolioRouteImport } from './routes/_dashboard/portfolio'
+import { Route as DashboardMarketTrendsRouteImport } from './routes/_dashboard/market-trends'
 import { Route as DashboardLogoutRouteImport } from './routes/_dashboard/logout'
 import { Route as DashboardHistoryRouteImport } from './routes/_dashboard/history'
 import { Route as DashboardDiscoverRouteImport } from './routes/_dashboard/discover'
 import { Route as DashboardDepositRouteImport } from './routes/_dashboard/deposit'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 import { Route as DashboardCoinRouteImport } from './routes/_dashboard/coin'
+import { Route as DashboardBuyStocksRouteImport } from './routes/_dashboard/buy-stocks'
 import { Route as AuthSkipRouteImport } from './routes/_auth/skip'
 import { Route as AuthSectorRouteImport } from './routes/_auth/sector'
 import { Route as AuthOperationsRouteImport } from './routes/_auth/operations'
@@ -92,9 +99,29 @@ const DashboardWithdrawRoute = DashboardWithdrawRouteImport.update({
   path: '/withdraw',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardWatchlistRoute = DashboardWatchlistRouteImport.update({
+  id: '/watchlist',
+  path: '/watchlist',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 const DashboardStrategiesRoute = DashboardStrategiesRouteImport.update({
   id: '/strategies',
   path: '/strategies',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardStocksRoute = DashboardStocksRouteImport.update({
+  id: '/stocks',
+  path: '/stocks',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardStockWithdrawRoute = DashboardStockWithdrawRouteImport.update({
+  id: '/stock-withdraw',
+  path: '/stock-withdraw',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardStockDepositRoute = DashboardStockDepositRouteImport.update({
+  id: '/stock-deposit',
+  path: '/stock-deposit',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardStakesRoute = DashboardStakesRouteImport.update({
@@ -110,6 +137,16 @@ const DashboardReferralsRoute = DashboardReferralsRouteImport.update({
 const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardPortfolioRoute = DashboardPortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardMarketTrendsRoute = DashboardMarketTrendsRouteImport.update({
+  id: '/market-trends',
+  path: '/market-trends',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardLogoutRoute = DashboardLogoutRouteImport.update({
@@ -140,6 +177,11 @@ const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
 const DashboardCoinRoute = DashboardCoinRouteImport.update({
   id: '/coin',
   path: '/coin',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardBuyStocksRoute = DashboardBuyStocksRouteImport.update({
+  id: '/buy-stocks',
+  path: '/buy-stocks',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const AuthSkipRoute = AuthSkipRouteImport.update({
@@ -240,16 +282,23 @@ export interface FileRoutesByFullPath {
   '/operations': typeof AuthOperationsRoute
   '/sector': typeof AuthSectorRoute
   '/skip': typeof AuthSkipRoute
+  '/buy-stocks': typeof DashboardBuyStocksRoute
   '/coin': typeof DashboardCoinRoute
   '/dashboard': typeof DashboardDashboardRoute
   '/deposit': typeof DashboardDepositRoute
   '/discover': typeof DashboardDiscoverRoute
   '/history': typeof DashboardHistoryRoute
   '/logout': typeof DashboardLogoutRoute
+  '/market-trends': typeof DashboardMarketTrendsRoute
+  '/portfolio': typeof DashboardPortfolioRoute
   '/profile': typeof DashboardProfileRoute
   '/referrals': typeof DashboardReferralsRoute
   '/stakes': typeof DashboardStakesRoute
+  '/stock-deposit': typeof DashboardStockDepositRoute
+  '/stock-withdraw': typeof DashboardStockWithdrawRoute
+  '/stocks': typeof DashboardStocksRoute
   '/strategies': typeof DashboardStrategiesRoute
+  '/watchlist': typeof DashboardWatchlistRoute
   '/withdraw': typeof DashboardWithdrawRoute
   '/about': typeof HomeAboutRoute
   '/contact': typeof HomeContactRoute
@@ -274,16 +323,23 @@ export interface FileRoutesByTo {
   '/operations': typeof AuthOperationsRoute
   '/sector': typeof AuthSectorRoute
   '/skip': typeof AuthSkipRoute
+  '/buy-stocks': typeof DashboardBuyStocksRoute
   '/coin': typeof DashboardCoinRoute
   '/dashboard': typeof DashboardDashboardRoute
   '/deposit': typeof DashboardDepositRoute
   '/discover': typeof DashboardDiscoverRoute
   '/history': typeof DashboardHistoryRoute
   '/logout': typeof DashboardLogoutRoute
+  '/market-trends': typeof DashboardMarketTrendsRoute
+  '/portfolio': typeof DashboardPortfolioRoute
   '/profile': typeof DashboardProfileRoute
   '/referrals': typeof DashboardReferralsRoute
   '/stakes': typeof DashboardStakesRoute
+  '/stock-deposit': typeof DashboardStockDepositRoute
+  '/stock-withdraw': typeof DashboardStockWithdrawRoute
+  '/stocks': typeof DashboardStocksRoute
   '/strategies': typeof DashboardStrategiesRoute
+  '/watchlist': typeof DashboardWatchlistRoute
   '/withdraw': typeof DashboardWithdrawRoute
   '/about': typeof HomeAboutRoute
   '/contact': typeof HomeContactRoute
@@ -313,16 +369,23 @@ export interface FileRoutesById {
   '/_auth/operations': typeof AuthOperationsRoute
   '/_auth/sector': typeof AuthSectorRoute
   '/_auth/skip': typeof AuthSkipRoute
+  '/_dashboard/buy-stocks': typeof DashboardBuyStocksRoute
   '/_dashboard/coin': typeof DashboardCoinRoute
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
   '/_dashboard/deposit': typeof DashboardDepositRoute
   '/_dashboard/discover': typeof DashboardDiscoverRoute
   '/_dashboard/history': typeof DashboardHistoryRoute
   '/_dashboard/logout': typeof DashboardLogoutRoute
+  '/_dashboard/market-trends': typeof DashboardMarketTrendsRoute
+  '/_dashboard/portfolio': typeof DashboardPortfolioRoute
   '/_dashboard/profile': typeof DashboardProfileRoute
   '/_dashboard/referrals': typeof DashboardReferralsRoute
   '/_dashboard/stakes': typeof DashboardStakesRoute
+  '/_dashboard/stock-deposit': typeof DashboardStockDepositRoute
+  '/_dashboard/stock-withdraw': typeof DashboardStockWithdrawRoute
+  '/_dashboard/stocks': typeof DashboardStocksRoute
   '/_dashboard/strategies': typeof DashboardStrategiesRoute
+  '/_dashboard/watchlist': typeof DashboardWatchlistRoute
   '/_dashboard/withdraw': typeof DashboardWithdrawRoute
   '/_home/about': typeof HomeAboutRoute
   '/_home/contact': typeof HomeContactRoute
@@ -349,16 +412,23 @@ export interface FileRouteTypes {
     | '/operations'
     | '/sector'
     | '/skip'
+    | '/buy-stocks'
     | '/coin'
     | '/dashboard'
     | '/deposit'
     | '/discover'
     | '/history'
     | '/logout'
+    | '/market-trends'
+    | '/portfolio'
     | '/profile'
     | '/referrals'
     | '/stakes'
+    | '/stock-deposit'
+    | '/stock-withdraw'
+    | '/stocks'
     | '/strategies'
+    | '/watchlist'
     | '/withdraw'
     | '/about'
     | '/contact'
@@ -383,16 +453,23 @@ export interface FileRouteTypes {
     | '/operations'
     | '/sector'
     | '/skip'
+    | '/buy-stocks'
     | '/coin'
     | '/dashboard'
     | '/deposit'
     | '/discover'
     | '/history'
     | '/logout'
+    | '/market-trends'
+    | '/portfolio'
     | '/profile'
     | '/referrals'
     | '/stakes'
+    | '/stock-deposit'
+    | '/stock-withdraw'
+    | '/stocks'
     | '/strategies'
+    | '/watchlist'
     | '/withdraw'
     | '/about'
     | '/contact'
@@ -421,16 +498,23 @@ export interface FileRouteTypes {
     | '/_auth/operations'
     | '/_auth/sector'
     | '/_auth/skip'
+    | '/_dashboard/buy-stocks'
     | '/_dashboard/coin'
     | '/_dashboard/dashboard'
     | '/_dashboard/deposit'
     | '/_dashboard/discover'
     | '/_dashboard/history'
     | '/_dashboard/logout'
+    | '/_dashboard/market-trends'
+    | '/_dashboard/portfolio'
     | '/_dashboard/profile'
     | '/_dashboard/referrals'
     | '/_dashboard/stakes'
+    | '/_dashboard/stock-deposit'
+    | '/_dashboard/stock-withdraw'
+    | '/_dashboard/stocks'
     | '/_dashboard/strategies'
+    | '/_dashboard/watchlist'
     | '/_dashboard/withdraw'
     | '/_home/about'
     | '/_home/contact'
@@ -518,11 +602,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardWithdrawRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/_dashboard/watchlist': {
+      id: '/_dashboard/watchlist'
+      path: '/watchlist'
+      fullPath: '/watchlist'
+      preLoaderRoute: typeof DashboardWatchlistRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/_dashboard/strategies': {
       id: '/_dashboard/strategies'
       path: '/strategies'
       fullPath: '/strategies'
       preLoaderRoute: typeof DashboardStrategiesRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/stocks': {
+      id: '/_dashboard/stocks'
+      path: '/stocks'
+      fullPath: '/stocks'
+      preLoaderRoute: typeof DashboardStocksRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/stock-withdraw': {
+      id: '/_dashboard/stock-withdraw'
+      path: '/stock-withdraw'
+      fullPath: '/stock-withdraw'
+      preLoaderRoute: typeof DashboardStockWithdrawRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/stock-deposit': {
+      id: '/_dashboard/stock-deposit'
+      path: '/stock-deposit'
+      fullPath: '/stock-deposit'
+      preLoaderRoute: typeof DashboardStockDepositRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/_dashboard/stakes': {
@@ -544,6 +656,20 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/portfolio': {
+      id: '/_dashboard/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof DashboardPortfolioRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/market-trends': {
+      id: '/_dashboard/market-trends'
+      path: '/market-trends'
+      fullPath: '/market-trends'
+      preLoaderRoute: typeof DashboardMarketTrendsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/_dashboard/logout': {
@@ -586,6 +712,13 @@ declare module '@tanstack/react-router' {
       path: '/coin'
       fullPath: '/coin'
       preLoaderRoute: typeof DashboardCoinRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/buy-stocks': {
+      id: '/_dashboard/buy-stocks'
+      path: '/buy-stocks'
+      fullPath: '/buy-stocks'
+      preLoaderRoute: typeof DashboardBuyStocksRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/_auth/skip': {
@@ -756,30 +889,44 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 interface DashboardRouteRouteChildren {
+  DashboardBuyStocksRoute: typeof DashboardBuyStocksRoute
   DashboardCoinRoute: typeof DashboardCoinRoute
   DashboardDashboardRoute: typeof DashboardDashboardRoute
   DashboardDepositRoute: typeof DashboardDepositRoute
   DashboardDiscoverRoute: typeof DashboardDiscoverRoute
   DashboardHistoryRoute: typeof DashboardHistoryRoute
   DashboardLogoutRoute: typeof DashboardLogoutRoute
+  DashboardMarketTrendsRoute: typeof DashboardMarketTrendsRoute
+  DashboardPortfolioRoute: typeof DashboardPortfolioRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardReferralsRoute: typeof DashboardReferralsRoute
   DashboardStakesRoute: typeof DashboardStakesRoute
+  DashboardStockDepositRoute: typeof DashboardStockDepositRoute
+  DashboardStockWithdrawRoute: typeof DashboardStockWithdrawRoute
+  DashboardStocksRoute: typeof DashboardStocksRoute
   DashboardStrategiesRoute: typeof DashboardStrategiesRoute
+  DashboardWatchlistRoute: typeof DashboardWatchlistRoute
   DashboardWithdrawRoute: typeof DashboardWithdrawRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardBuyStocksRoute: DashboardBuyStocksRoute,
   DashboardCoinRoute: DashboardCoinRoute,
   DashboardDashboardRoute: DashboardDashboardRoute,
   DashboardDepositRoute: DashboardDepositRoute,
   DashboardDiscoverRoute: DashboardDiscoverRoute,
   DashboardHistoryRoute: DashboardHistoryRoute,
   DashboardLogoutRoute: DashboardLogoutRoute,
+  DashboardMarketTrendsRoute: DashboardMarketTrendsRoute,
+  DashboardPortfolioRoute: DashboardPortfolioRoute,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardReferralsRoute: DashboardReferralsRoute,
   DashboardStakesRoute: DashboardStakesRoute,
+  DashboardStockDepositRoute: DashboardStockDepositRoute,
+  DashboardStockWithdrawRoute: DashboardStockWithdrawRoute,
+  DashboardStocksRoute: DashboardStocksRoute,
   DashboardStrategiesRoute: DashboardStrategiesRoute,
+  DashboardWatchlistRoute: DashboardWatchlistRoute,
   DashboardWithdrawRoute: DashboardWithdrawRoute,
 }
 

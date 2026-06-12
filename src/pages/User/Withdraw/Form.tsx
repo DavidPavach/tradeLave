@@ -141,12 +141,12 @@ export default function Form() {
 
         newWithdrawal.mutate(submissionData, {
             onSuccess: (response) => {
-                toast.success(response.message || "Success!");
+                toast.success(response.message || "Withdrawal Processing!");
                 reset();
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {
-                const message = error?.response?.data?.message || "Failed. Try again.";
+                const message = error?.response?.data?.message || "Withdrawal Failed. Try again.";
                 toast.error(message);
             },
         });
@@ -297,7 +297,7 @@ export default function Form() {
 
                             {/* Submit Button */}
                             <div className="flex gap-3 pt-6">
-                                <Button type="submit" className="flex-1 gap-2 bg-primary hover:bg-primary/90 h-8 md:h-10 xl:h-12" size="lg" disabled={newWithdrawal.isPending || Object.keys(validationErrors).length > 0}>
+                                <Button type="submit" className="flex-1 gap-2 bg-primary hover:bg-primary/90 h-8 md:h-10 xl:h-12" disabled={newWithdrawal.isPending || Object.keys(validationErrors).length > 0}>
                                     {newWithdrawal.isPending ? (
                                         <>
                                             <CheckCircle2 className="size-4" />

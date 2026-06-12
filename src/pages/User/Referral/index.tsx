@@ -33,7 +33,7 @@ const ReferralSkeleton = () => {
 
 const Index = () => {
 
-    const { data, isLoading, isFetching, isError, refetch } = useUserAllRefs();
+    const { data, isLoading, isError, refetch } = useUserAllRefs();
 
     // Error State
     if (isError) {
@@ -56,17 +56,17 @@ const Index = () => {
             </header>
 
             {/* Loading State */}
-            {(isLoading || isFetching) && <ReferralSkeleton />}
+            {(isLoading) && <ReferralSkeleton />}
 
             {/* Empty State */}
-            {!isLoading && !isFetching && referrals.length === 0 && (
+            {!isLoading && referrals.length === 0 && (
                 <div className="py-20 text-muted-foreground text-center">
                     You haven’t referred anyone yet.
                 </div>
             )}
 
             {/* Data State */}
-            {!isLoading && !isFetching && referrals.length > 0 && (
+            {!isLoading && referrals.length > 0 && (
                 <div className="space-y-4">
                     {referrals.map((ref: Referral) => (
                         <div key={ref._id} className="flex justify-between items-center bg-card hover:bg-muted/40 p-2 md:p-3 xl:p-4 border border-border rounded-xl transition">

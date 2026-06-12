@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type Sector = "investment" | "stocks";
+type Sector = "cryptocurrency" | "stocks";
 
 type SectorState = {
     selectedSector: Sector;
@@ -10,11 +10,11 @@ type SectorState = {
 };
 
 const useSectorStore = create<SectorState>((set) => ({
-    selectedSector: "investment",
+    selectedSector: "cryptocurrency",
 
     setSector: (sector: string) => {
         const normalized = String(sector).toLowerCase() as Sector | string;
-        if (normalized !== "investment" && normalized !== "stocks") {
+        if (normalized !== "cryptocurrency" && normalized !== "stocks") {
             return;
         }
         set({ selectedSector: normalized as Sector });
@@ -22,11 +22,11 @@ const useSectorStore = create<SectorState>((set) => ({
 
     toggleSector: () => {
         set((state) => ({
-            selectedSector: state.selectedSector === "investment" ? "stocks" : "investment",
+            selectedSector: state.selectedSector === "cryptocurrency" ? "stocks" : "cryptocurrency",
         }));
     },
 
-    resetSector: () => set({ selectedSector: "investment" }),
+    resetSector: () => set({ selectedSector: "cryptocurrency" }),
 }));
 
 export default useSectorStore;

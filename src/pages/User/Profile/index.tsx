@@ -21,7 +21,7 @@ import { Loader } from "lucide-react";
 
 const Index = () => {
 
-    const { data, isLoading, isFetching, isError, refetch } = useUserDetails();
+    const { data, isLoading, isError, refetch } = useUserDetails();
     const updateProfile = useUpdateUserProfile();
 
     const [form, setForm] = useState({
@@ -40,7 +40,7 @@ const Index = () => {
         })
     }
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center gap-y-1 h-[80vh]">
                 <div className="border-4 border-primary border-t-transparent rounded-full size-8 animate-spin" />

@@ -1,4 +1,4 @@
-//Format Date and Time
+// Format Date and Time
 export const formatDate = (dateInput: Date | string | number, variant: "long" | "short" = "long") => {
     const date = new Date(dateInput);
 
@@ -66,9 +66,10 @@ export const formatAddress = (address: string) => {
     return `${start}...${end}`
 }
 
-//Format Coin Percentage
+// Format Coin Percentage
 export const formatPercentage = (value: number) => `${value >= 0 ? "+" : ""}${value.toFixed(2)}%`;
 
+// Format Coin Prices
 export function formatPrice(value: number, symbol: string) {
     if (symbol === "SHIB") return `$${value.toFixed(6)}`;
     if (value < 1) return `$${value.toFixed(4)}`;
@@ -185,4 +186,21 @@ export function notEmpty(record: Record<string, valueType>): boolean {
 export function toNumberSafe(v: string) {
     const n = Number(v);
     return Number.isFinite(n) ? n : 0;
+}
+
+// Stocks Txs
+export function sumTxs(txs: StockTxs[]) {
+    let totalUsd = 0;
+    let totalShares = 0;
+
+    for (const tx of txs) {
+        if (typeof tx.usdAmount === "number" && !Number.isNaN(tx.usdAmount)) {
+            totalUsd += tx.usdAmount;
+        }
+        if (typeof tx.shares === "number" && !Number.isNaN(tx.shares)) {
+            totalShares += tx.shares;
+        }
+    }
+
+    return { totalUsd, totalShares };
 }

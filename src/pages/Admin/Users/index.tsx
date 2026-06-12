@@ -16,12 +16,12 @@ import { Loader2 } from "lucide-react";
 const Index = () => {
 
     const [page, setPage] = useState(1);
-    const { data, isLoading, isFetching, isError, refetch } = useAdminUsers(page, 50);
+    const { data, isLoading, isError, refetch } = useAdminUsers(page, 50);
     const search = Route.useSearch();
     const accountId = search.profile;
 
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-[80vh]">
                 <Loader2 className="size-6 text-primary animate-spin" />

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 // APIs
-import { adminDetailsFn, adminGetAdminFn, adminGetIntsFn, adminGetPlansFn, adminGetUserFn, adminReferralFn, adminTxsFn, adminUserBalanceFn, fetchDashboardValuesFn, fetchPricesFn, getAllIntsFn, getAllPlansFn, getAllTxsFn, getCoinDetailsFn, getCoinTransactionsFn, getDepositRtsFn, getUserBalanceFn, getUserDepositRequestsFn, getUserDetailsFn, getUserReferralFn, getUsersFn, getUserTypeTransactionFn } from "./api.service";
+import { adminDetailsFn, adminGetAdminFn, adminGetIntsFn, adminGetPlansFn, adminGetUserFn, adminReferralFn, adminTxsFn, adminUserBalanceFn, fetchDashboardValuesFn, fetchPricesFn, fetchSettingsFn, fetchShareTxsFn, getAllIntsFn, getAllPlansFn, getAllTxsFn, getCoinDetailsFn, getCoinTransactionsFn, getDepositRtsFn, getStockBalanceFn, getStockPricesFn, getUserBalanceFn, getUserDepositRequestsFn, getUserDetailsFn, getUserReferralFn, getUsersFn, getUserTypeTransactionFn, portfolioFn, stockHistoryFn } from "./api.service";
 
 // Get Dashboard Values
 export function useDashboardValues() {
@@ -98,6 +98,54 @@ export function useUserAllRefs() {
     return useQuery({
         queryKey: ['referrals'],
         queryFn: () => getUserReferralFn()
+    })
+}
+
+// Get user stock balance
+export function useStockBalance() {
+    return useQuery({
+        queryKey: ['stock-balance'],
+        queryFn: () => getStockBalanceFn()
+    })
+}
+
+// Get user stock prices
+export function useStockPrices() {
+    return useQuery({
+        queryKey: ['stock-prices'],
+        queryFn: () => getStockPricesFn()
+    })
+}
+
+// Get user stock transactions history
+export function useStockHistory(page: number = 1, limit: number = 50) {
+    return useQuery({
+        queryKey: ['stock-history'],
+        queryFn: () => stockHistoryFn(page, limit)
+    })
+}
+
+// Get Portfolio
+export function usePortfolio() {
+    return useQuery({
+        queryKey: ['stock-portfolio'],
+        queryFn: () => portfolioFn()
+    })
+}
+
+// Get Stocks Transactions
+export function useStockTxs(symbol: string) {
+    return useQuery({
+        queryKey: ['stock-transactions', symbol],
+        queryFn: () => fetchShareTxsFn(symbol)
+    })
+}
+
+// Get Settings
+export function useSettings () {
+    return useQuery({
+        queryKey: ['stock-settings'],
+        queryFn: () => fetchSettingsFn()
     })
 }
 

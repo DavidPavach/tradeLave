@@ -4,9 +4,16 @@ import { createFileRoute } from '@tanstack/react-router';
 import Stakes from '@/pages/User/Stakes';
 
 export const Route = createFileRoute('/_dashboard/stakes')({
+  head: () => ({
+    meta: [
+      {
+        title: `Stakes | Trade Lave`,
+      },
+    ],
+  }),
   validateSearch: (search: Record<string, unknown>) => ({
-        plan: search.plan as string | undefined,
-    }),
+    plan: search.plan as string | undefined,
+  }),
   component: RouteComponent,
 })
 

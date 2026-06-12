@@ -15,10 +15,10 @@ const Index = () => {
 
     const [tab, setTab] = useState<"list" | "new">("list");
 
-    const { data, isLoading, isFetching, isError, refetch } = useUserTypeTransactions("withdrawal");
+    const { data, isLoading, isError, refetch } = useUserTypeTransactions("withdrawal");
     const items = data?.data?.items ?? [];
 
-    const isBusy = isLoading || isFetching;
+    const isBusy = isLoading;
 
     return (
         <main>
@@ -41,7 +41,7 @@ const Index = () => {
                                 className="absolute inset-0 bg-card shadow-sm rounded-xl"
                             />
                         )}
-                        <span className={`relative z-10 ${tab === item ? "text-primary" : "text-muted-foreground"}`}>
+                        <span className={`relative ${tab === item ? "text-primary" : "text-muted-foreground"}`}>
                             {item === "list" ? "My Withdrawals" : "New Withdrawal"}
                         </span>
                     </button>

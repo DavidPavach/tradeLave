@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // API Endpoints
-import { adminCreatePlanFn, adminCreateTxFn, adminDeletePlanFn, adminEditIntsFn, adminUpdateFn, adminUpdatePlanFn, adminUpdateTxFn, adminUpdateUserFn, authAdminFn, createDepositRequestFn, createNotificationFn, createUserFn, deleteDepositRtFn, deleteReferralFn, deleteTxFn, editDepositRtFn, loginUserFn, NewInvestmentFn, newTransactionFn, passResetVerifyFn, patchDepositDetailsFn, resendVerificationFn, resetPasswordFn, updateDetails, updateProfilePicture, userKycFn, verifyPassResetOtpFn, verifyUserFn } from "./api.service";
+import { adminCreatePlanFn, adminCreateTxFn, adminDeletePlanFn, adminEditIntsFn, adminUpdateFn, adminUpdatePlanFn, adminUpdateTxFn, adminUpdateUserFn, authAdminFn, buyShareFn, createDepositRequestFn, createNotificationFn, createUserFn, deleteDepositRtFn, deleteReferralFn, deleteTxFn, editDepositRtFn, loginUserFn, newDepositFn, NewInvestmentFn, newTransactionFn, newWithdrawalFn, passResetVerifyFn, patchDepositDetailsFn, resendVerificationFn, resetPasswordFn, sellShareFn, updateDetailsFn, updateProfilePictureFn, userKycFn, verifyPassResetOtpFn, verifyUserFn } from "./api.service";
 
 //Create New Users
 export function useRegisterUser() {
@@ -156,7 +156,7 @@ export function useUpdateProfilePicture() {
 
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (data: FormData) => updateProfilePicture(data),
+        mutationFn: (data: FormData) => updateProfilePictureFn(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['userDetails'] });
         },
@@ -172,7 +172,7 @@ export function useUpdateUserProfile() {
     const queryClient = useQueryClient();
     return useMutation({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        mutationFn: (data: any) => updateDetails(data),
+        mutationFn: (data: any) => updateDetailsFn(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['userDetails'] });
         },
@@ -181,6 +181,78 @@ export function useUpdateUserProfile() {
         }
     })
 }
+
+// Create a new deposit
+export function useNewStockDeposit() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: NewStockDeposit) => newDepositFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['stock-history'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-balance'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-portfolio'] });
+        },
+        onError: (error) => {
+            console.error("User Stock Deposit failed:", error);
+        }
+    })
+}
+
+// Create a new withdrawal
+export function useNewStockWithdrawal() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: NewStockWithdrawal) => newWithdrawalFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['stock-history'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-balance'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-portfolio'] });
+        },
+        onError: (error) => {
+            console.error("User Stock Withdrawal failed:", error);
+        }
+    })
+}
+
+// Buy new shares
+export function useNewShares() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: BuyShares) => buyShareFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['stock-history'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-balance'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-portfolio'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-transactions'] });
+        },
+        onError: (error) => {
+            console.error("Buying of Shares failed:", error);
+        }
+    })
+}
+
+
+// Sell Shares
+export function useSellShares() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: SellShares) => sellShareFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['stock-history'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-balance'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-portfolio'] });
+            queryClient.invalidateQueries({ queryKey: ['stock-transactions'] });
+        },
+        onError: (error) => {
+            console.error("Selling of Shares failed:", error);
+        }
+    })
+}
+
 
 
 
@@ -343,7 +415,7 @@ export function useAdminDeletePlan() {
 
 // Edit Investment
 export function useAdminEditInts() {
-    
+
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (data: { investmentId: string, status: string }) => adminEditIntsFn(data),
@@ -388,7 +460,7 @@ export function useAdminUpdate() {
 }
 
 // Create Notification
-export function useAdminNotification(){
+export function useAdminNotification() {
 
     return useMutation({
         mutationFn: (data: NotificationPayload) => createNotificationFn(data),

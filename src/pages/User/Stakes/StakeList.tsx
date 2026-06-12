@@ -7,9 +7,9 @@ import ActiveStakes from "./ActiveStakes";
 import CompletedStakes from "./CompletedStakes";
 
 const StakeList = () => {
-    const { data, isLoading, isFetching, isError, refetch } = useUserAllInts();
+    const { data, isLoading, isError, refetch } = useUserAllInts();
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-[80vh]">
                 <div className="mb-3 border-4 border-primary border-t-transparent rounded-full size-10 animate-spin" />

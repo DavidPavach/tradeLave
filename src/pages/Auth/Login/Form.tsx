@@ -56,7 +56,7 @@ export default function Form() {
                 setId(response.data.id)
                 toast.success(response.data.message || "Your account was authenticated successfully!");
                 reset();
-                navigate({ to: '/dashboard' });
+                navigate({ to: '/sector' });
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {

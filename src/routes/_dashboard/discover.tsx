@@ -4,6 +4,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import Discover from "@/pages/User/Discover";
 
 export const Route = createFileRoute('/_dashboard/discover')({
+  head: () => ({
+    meta: [
+      {
+        title: `Discover | Trade Lave`,
+      },
+    ],
+  }),
   component: RouteComponent,
 })
 

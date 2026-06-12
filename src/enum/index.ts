@@ -41,7 +41,7 @@ export const coinMap: Record<string, string> = {
   "usd coin": 'usd-coin'
 };
 
-//Coin Logos, Symbol and Name
+// Coin Logos, Symbol and Name
 export const coinMeta: Record<string, { name: string; symbol: string; logo: string }> = {
   bitcoin: { name: "Bitcoin", symbol: "BTC", logo: "/coins/bitcoin.svg" },
   ethereum: { name: "Ethereum", symbol: "ETH", logo: "/coins/ethereum.svg" },
@@ -58,7 +58,7 @@ export const coinMeta: Record<string, { name: string; symbol: string; logo: stri
 export const MINI_DEPOSIT_USD = import.meta.env.VITE_MINI_DEPOSIT_USD;
 
 // Coin Wallets and QR Codes
-export const paymentMeta: Record<string, {qrCode: string, walletAddress: string }> = {
+export const paymentMeta: Record<string, { qrCode: string, walletAddress: string }> = {
   bitcoin: { qrCode: "/wallets/btc.jpeg", walletAddress: "bc1qeh6xmkq0hr7dt44ljsswzg536pj2uvffp4evua" },
   ethereum: { qrCode: "/wallets/eth.jpeg", walletAddress: "0x06629BDcBB0BBF6B18Da3f68D5FB4B8f28828fac" },
   "tether trc20": { qrCode: "/wallets/trc20.jpeg", walletAddress: "TVQVr411u17XXoFb3jvAkkSMLVBNdmKScf" },
@@ -68,4 +68,14 @@ export const paymentMeta: Record<string, {qrCode: string, walletAddress: string 
   "usd coin": { qrCode: "/wallets/usdc.jpeg", walletAddress: "0x06629BDcBB0BBF6B18Da3f68D5FB4B8f28828fac" },
   ripple: { qrCode: "/wallets/xrp.jpeg", walletAddress: "rNG5awqdzzHo13ZDfSdFzeNuDmdQYBaNXN" },
   "shiba inu": { qrCode: "/wallets/shiba-inu.jpeg", walletAddress: "0x06629BDcBB0BBF6B18Da3f68D5FB4B8f28828fac" },
+}
+
+// Stocks
+export const stockMeta: Record<string, { logo: string, name: string }> = {
+  AAPL: { logo: "/stocks/aapl.svg", name: "Apple Inc." },
+  GOOGL: { logo: "/stocks/googl.svg", name: "Alphabet Inc (Google) Class A" },
+  TSLA: { logo: "/stocks/tsla.svg", name: "Tesla, Inc." },
+  MSFT: { logo: "/stocks/msft.svg", name: "Microsoft Corp." },
+  AMZN: { logo: "/stocks/amzn.svg", name: "Amazon.com, Inc." },
+  SPCX: { logo: "/stocks/spacex.png", name: "Space Exploration Technologies Corp." }
 }

@@ -21,10 +21,10 @@ const ProfileRow = ({ icon, label, value }: { icon: React.ReactNode; label: stri
 
 
 const Index = () => {
-    const { data, isLoading, isFetching, isError, refetch } =
+    const { data, isLoading, isError, refetch } =
         useGetCurrentAdmin();
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center gap-2 h-[80vh]">
                 <Loader2 className="size-6 text-primary animate-spin" />

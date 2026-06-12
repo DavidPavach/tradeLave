@@ -3,26 +3,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-fox-toast";
 
-// Utils and Service
+// Utils, Services and Stores
 import { clearTokens, deleteId } from "@/lib/token";
 import { useUserDetails } from "@/services/queries.service";
+import useSectorStore from "@/stores/sector.store";
 
 // Components
 import { BellIcon } from "./BellIcon";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { ThemeToggle } from "./ThemeToggle";
+import SectorSwitcher from "./SectorSwitch";
 
 // Icons
 import { X, LogOut, ChevronDown } from 'lucide-react';
-import { Category, UserTag, DocumentText, Gift, Discover } from "iconsax-reactjs";
-import { ThemeToggle } from "./ThemeToggle";
+import { Category, UserTag, DocumentText, Gift, Discover, WalletMinus, TrendUp } from "iconsax-reactjs";
 
 const Header = () => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+
     const { data } = useUserDetails();
     const navigate = useNavigate();
+    const { selectedSector } = useSectorStore();
 
     const profilePicture = data?.data?.profilePicture;
     const status = data?.data?.kyc?.status || "pending"
@@ -93,7 +97,7 @@ const Header = () => {
         }
     }
 
-    const menuItems = [
+    const CRYPTOCURRENCY_MENU_ITEMS = [
         {
             id: "discover",
             label: "Discover",
@@ -127,6 +131,30 @@ const Header = () => {
         },
     ]
 
+    const STOCK_MENU_ITEMS = [
+        {
+            id: "withdraw",
+            label: "Withdrawal",
+            icon: <WalletMinus size={18} />,
+            action: () => handleMenuClick("stock-withdraw"),
+        },
+        {
+            id: "trend",
+            label: "Market Trends",
+            icon: <TrendUp size={18} />,
+            action: () => handleMenuClick("market-trends"),
+        },
+        {
+            id: "logout",
+            label: "Log Out",
+            icon: <LogOut size={18} />,
+            action: () => handleMenuClick("logout"),
+            variant: "danger" as const,
+        },
+    ]
+
+    const menuItems = selectedSector === "cryptocurrency" ? CRYPTOCURRENCY_MENU_ITEMS : STOCK_MENU_ITEMS;
+
     return (
         <header className="relative flex justify-between items-center bg-background px-2 py-3 border-border border-b">
             <a href="/profile#kyc" className="flex items-baseline gap-x-0.5">
@@ -142,8 +170,12 @@ const Header = () => {
                 </div>
             </a>
             <section className="flex justify-end items-center gap-x-3">
+                <SectorSwitcher />
+
                 <BellIcon />
+
                 <ThemeToggle />
+
                 <div className="relative">
                     <button ref={buttonRef} onClick={toggleDropdown} className="flex items-center gap-2 hover:bg-accent p-0.5 border border-border rounded-lg focus:outline-none transition-colors cursor-pointer" aria-label="Open menu" aria-expanded={isDropdownOpen}>
                         <div className="flex justify-center items-center rounded-full size-8">

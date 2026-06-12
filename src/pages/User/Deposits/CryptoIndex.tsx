@@ -16,12 +16,12 @@ const CryptoIndex = () => {
 
     const [tab, setTab] = useState<"list" | "new">("list");
 
-    // TODO, paginate later (Default is 1 Page and 50 Limit)
-    const { data, isLoading, isFetching, isError, refetch } = useUserTypeTransactions("deposit");
+    // TODO, paginate later (Default is 1 Page and 100 Limit)
+    const { data, isLoading, isError, refetch } = useUserTypeTransactions("deposit", 1, 100);
 
     const transactions: Transaction[] = data?.data?.data ?? [];
 
-    const isBusy = isLoading || isFetching;
+    const isBusy = isLoading;
 
 
     return (
@@ -45,7 +45,7 @@ const CryptoIndex = () => {
                                 className="absolute inset-0 bg-card shadow-sm rounded-xl"
                             />
                         )}
-                        <span className={`relative z-10 ${tab === item ? "text-primary" : "text-muted-foreground"}`}>
+                        <span className={`relative ${tab === item ? "text-primary" : "text-muted-foreground"}`}>
                             {item === "list" ? "My Deposits" : "New Deposit"}
                         </span>
                     </button>
