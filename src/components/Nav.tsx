@@ -210,7 +210,7 @@ export const SideNav = () => {
                             className="flex flex-col gap-y-3"
                         >
                             {/* Section title */}
-                            <div className="flex items-center gap-x-2 px-2 font-semibold text-muted-foreground text-xs uppercase tracking-wide">
+                            <div className="flex items-center gap-x-2 px-2 font-semibold text-primary text-xs uppercase tracking-wide">
                                 <SectionIcon
                                     className="size-4"
                                     variant="Bold"
