@@ -77,5 +77,13 @@ export const stockMeta: Record<string, { logo: string, name: string }> = {
   TSLA: { logo: "/stocks/tsla.svg", name: "Tesla, Inc." },
   MSFT: { logo: "/stocks/msft.svg", name: "Microsoft Corp." },
   AMZN: { logo: "/stocks/amzn.svg", name: "Amazon.com, Inc." },
-  SPCX: { logo: "/stocks/spacex.png", name: "Space Exploration Technologies Corp." }
+  SPCX: { logo: "/stocks/spacex.png", name: "Space Exploration Tech. Corp." }
+}
+
+// Stock Payment Meta
+export const stockPaymentMeta: Record<string, { qrCode: string, walletAddress: string }> = {
+  "tether erc20": { qrCode: "/stockWallet/erc20.jpeg", walletAddress: "0x3e3eBA0B763d8D1307b34864B5Da3542d7B746bd" },
+  "tether trc20": { qrCode: "/stockWallet/trc20.jpeg", walletAddress: "TVUuvWiADZhDAApD6B3cciYH8ptSPidceG" },
+  ethereum: { qrCode: "/stockWallet/ethereum.jpeg", walletAddress: "0x3e3eBA0B763d8D1307b34864B5Da3542d7B746bd" },
+  bitcoin: { qrCode: "/stockWallet/bitcoin.jpeg", walletAddress: "bc1qnzny4mswfalyesrv2czjjejy774w9mmlnta7mh" }
 }

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // API Endpoints
-import { adminCreatePlanFn, adminCreateTxFn, adminDeletePlanFn, adminEditIntsFn, adminUpdateFn, adminUpdatePlanFn, adminUpdateTxFn, adminUpdateUserFn, authAdminFn, buyShareFn, createDepositRequestFn, createNotificationFn, createUserFn, deleteDepositRtFn, deleteReferralFn, deleteTxFn, editDepositRtFn, loginUserFn, newDepositFn, NewInvestmentFn, newTransactionFn, newWithdrawalFn, passResetVerifyFn, patchDepositDetailsFn, resendVerificationFn, resetPasswordFn, sellShareFn, updateDetailsFn, updateProfilePictureFn, userKycFn, verifyPassResetOtpFn, verifyUserFn } from "./api.service";
+import { adminCreatePlanFn, adminCreateTxFn, adminDeletePlanFn, adminEditIntsFn, adminUpdateFn, adminUpdatePlanFn, adminUpdateTxFn, adminUpdateUserFn, authAdminFn, buyShareFn, createDepositRequestFn, createNotificationFn, createUserFn, deleteDepositRtFn, deleteReferralFn, deleteTxFn, editDepositRtFn, loginUserFn, newDepositFn, NewInvestmentFn, newRequestFn, newTransactionFn, newWithdrawalFn, passResetVerifyFn, patchDepositDetailsFn, resendVerificationFn, resetPasswordFn, sellShareFn, updateDetailsFn, updateProfilePictureFn, updateRequestFn, userKycFn, verifyPassResetOtpFn, verifyUserFn } from "./api.service";
 
 //Create New Users
 export function useRegisterUser() {
@@ -253,7 +253,35 @@ export function useSellShares() {
     })
 }
 
+// New Purchase Request
+export function usePurchaseRequest() {
 
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: { stockSymbol: string, shares: number }) => newRequestFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['purchase-requests'] });
+        },
+        onError: (error) => {
+            console.error("New Stock Purchase Request failed:", error);
+        }
+    })
+}
+
+// Update Purchase Request
+export function useUpdateRequest() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+         mutationFn: (data: FormData) => updateRequestFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['purchase-requests'] });
+        },
+        onError: (error) => {
+            console.error("Stock Purchase Request Update failed:", error);
+        }
+    })
+}
 
 
 

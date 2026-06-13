@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-fox-toast";
 
 // Enums, Utils and Services
-import { paymentMeta } from "@/enum";
+import { stockPaymentMeta } from "@/enum";
 import { formatCurrency } from "@/utils/format";
 import { useNewStockDeposit } from "@/services/mutations.service";
 
@@ -77,7 +77,7 @@ type CompleteProps = {
 
 export default function CompleteDeposit({ coin, amount, coinAmount, closeModal }: CompleteProps) {
 
-    const COIN_DETAILS = paymentMeta[coin]
+    const COIN_DETAILS = stockPaymentMeta[coin]
 
     const [transactionHash, setTransactionHash] = useState<string>("");
     const [copied, setCopied] = useState<boolean>(false);

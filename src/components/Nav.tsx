@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useSectorStore from "@/stores/sector.store";
 
 // Icons
-import { Graph, Briefcase, Home3, Logout, Profile, Receipt1, WalletAdd, DocumentText, Discover, GlobalSearch, Candle, StatusUp, TrendUp, ProfileCircle, WalletMinus, Wallet1, Element4, Icon } from "iconsax-reactjs";
+import { Graph, Briefcase, Home3, Logout, Profile, Receipt1, WalletAdd, DocumentText, Discover, GlobalSearch, Candle, StatusUp, TrendUp, ProfileCircle, WalletMinus, Wallet1, Element4, Icon, Bank } from "iconsax-reactjs";
 
 type NavSection = {
     id: string;
@@ -108,6 +108,11 @@ const STOCKS_NAV_SECTIONS: NavSection[] = [
                 href: "/buy-stocks",
                 icon: Candle,
                 label: "Buy Stocks",
+            },
+            {
+                href: "/request",
+                icon: Bank,
+                label: "Purchase Request",
             },
             {
                 href: "/market-trends",

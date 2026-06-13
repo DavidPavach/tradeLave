@@ -43,11 +43,7 @@ export const resetPasswordFn = async (data: { email: string, password: string })
 
 // Submit Kyc
 export const userKycFn = async (data: FormData) => {
-    const response = await axiosUser.patch("users/kyc", data, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
+    const response = await axiosUser.patch("users/kyc", data);
     return response.data;
 };
 
@@ -156,11 +152,7 @@ export const getAllIntsFn = async (page?: number, limit?: number) => {
 // Update Profile Picture
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateProfilePictureFn = async (data: FormData): Promise<any> => {
-    const response = await axiosUser.patch(`users/updateProfilePicture`, data, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
+    const response = await axiosUser.patch(`users/updateProfilePicture`, data);
     return response.data;
 }
 
@@ -234,6 +226,24 @@ export const fetchShareTxsFn = async (symbol: string) => {
 // Fetch the Settings
 export const fetchSettingsFn = async () => {
     const response = await axiosUser.get(`settings/get`);
+    return response.data;
+}
+
+// Fetch Purchase Requests
+export const fetchRequestsFn = async () => {
+    const response = await axiosUser.get(`stock-requests/get`);
+    return response.data;
+}
+
+// New Purchase Request
+export const newRequestFn = async (data: { stockSymbol: string, shares: number }) => {
+    const response = await axiosUser.post(`stock-requests/new`, data);
+    return response.data;
+}
+
+// Update Purchase Request
+export const updateRequestFn = async (data: FormData) => {
+    const response = await axiosUser.patch(`stock-requests/update`, data);
     return response.data;
 }
 

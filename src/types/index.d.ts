@@ -219,6 +219,26 @@ declare type Settings = {
   _id: string;
 };
 
+// Stock Deposit Request
+
+declare type Details = {
+  admin?: Array<{ message: string; at: string, file?: string }>
+  user?: Array<{ message: string; at: string, file?: string }>
+}
+
+declare type StockRequest = {
+  createdAt: string;
+  details: Details,
+  hasPaid: boolean;
+  shares: number;
+  status: string;
+  stockSymbol: string;
+  updatedAt: string;
+  usdAmount: number;
+  user: string;
+  __v: number;
+  _id: string;
+}
 
 // Admin
 declare type UserBrief = {

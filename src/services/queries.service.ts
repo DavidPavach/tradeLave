@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 // APIs
-import { adminDetailsFn, adminGetAdminFn, adminGetIntsFn, adminGetPlansFn, adminGetUserFn, adminReferralFn, adminTxsFn, adminUserBalanceFn, fetchDashboardValuesFn, fetchPricesFn, fetchSettingsFn, fetchShareTxsFn, getAllIntsFn, getAllPlansFn, getAllTxsFn, getCoinDetailsFn, getCoinTransactionsFn, getDepositRtsFn, getStockBalanceFn, getStockPricesFn, getUserBalanceFn, getUserDepositRequestsFn, getUserDetailsFn, getUserReferralFn, getUsersFn, getUserTypeTransactionFn, portfolioFn, stockHistoryFn } from "./api.service";
+import { adminDetailsFn, adminGetAdminFn, adminGetIntsFn, adminGetPlansFn, adminGetUserFn, adminReferralFn, adminTxsFn, adminUserBalanceFn, fetchDashboardValuesFn, fetchPricesFn, fetchRequestsFn, fetchSettingsFn, fetchShareTxsFn, getAllIntsFn, getAllPlansFn, getAllTxsFn, getCoinDetailsFn, getCoinTransactionsFn, getDepositRtsFn, getStockBalanceFn, getStockPricesFn, getUserBalanceFn, getUserDepositRequestsFn, getUserDetailsFn, getUserReferralFn, getUsersFn, getUserTypeTransactionFn, portfolioFn, stockHistoryFn } from "./api.service";
 
 // Get Dashboard Values
 export function useDashboardValues() {
@@ -142,10 +142,18 @@ export function useStockTxs(symbol: string) {
 }
 
 // Get Settings
-export function useSettings () {
+export function useSettings() {
     return useQuery({
         queryKey: ['stock-settings'],
         queryFn: () => fetchSettingsFn()
+    })
+}
+
+// Get Purchase Requests
+export function usePurchaseRequest() {
+    return useQuery({
+        queryKey: ['purchase-requests'],
+        queryFn: () => fetchRequestsFn()
     })
 }
 

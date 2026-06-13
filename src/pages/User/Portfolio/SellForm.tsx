@@ -152,10 +152,10 @@ const SellForm = ({ stock, shares, marketPrice, onClose }: SellProps) => {
                         placeholder="0.00"
                         value={sellShares}
                         onChange={(e) => setSellShares(e.target.value)}
-                        className="bg-muted/30 border-border/50 h-11 font-mono text-base"
+                        className="bg-muted/30 border-border/50 h-11 font-mono"
                     />
                     {shares < parseInt(sellShares, 10) && (
-                        <p className="text-destructive text-xs">Exceeds available shares</p>
+                        <p className="text-[11px] text-destructive md:text-xs xl:text-sm">Exceeds available shares</p>
                     )}
                 </div>
 

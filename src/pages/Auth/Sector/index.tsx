@@ -50,7 +50,7 @@ export default function Index() {
                         description="Manage your long-term capital stakes, alternative assets, and private equity portfolio with institutional-grade tools."
                         buttonLabel="Select Assets Sector"
                         iconBg="bg-primary"
-                        onClick={() => handleClick("investment")}
+                        onClick={() => handleClick("cryptocurrency")}
                     />
 
                     <SectorCard

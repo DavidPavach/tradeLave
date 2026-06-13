@@ -16,7 +16,7 @@ import SectorSwitcher from "./SectorSwitch";
 
 // Icons
 import { X, LogOut, ChevronDown } from 'lucide-react';
-import { Category, UserTag, DocumentText, Gift, Discover, WalletMinus, TrendUp } from "iconsax-reactjs";
+import { Category, UserTag, DocumentText, Gift, Discover, WalletMinus, TrendUp, Bank } from "iconsax-reactjs";
 
 const Header = () => {
 
@@ -88,6 +88,14 @@ const Header = () => {
             case "profile":
                 navigate({ to: "/profile" });
                 break
+            case "market-trends":
+                navigate({ to: "/market-trends" });
+                break
+            case "stock-withdraw":
+                navigate({ to: "/stock-withdraw" });
+                break
+            case "request":
+                navigate({ to: "/request" });
                 break
             case "logout":
                 handleLogOut();
@@ -132,6 +140,12 @@ const Header = () => {
     ]
 
     const STOCK_MENU_ITEMS = [
+        {
+            id: "request",
+            label: "Purchase Request",
+            icon: <Bank size={18} />,
+            action: () => handleMenuClick("request"),
+        },
         {
             id: "withdraw",
             label: "Withdrawal",

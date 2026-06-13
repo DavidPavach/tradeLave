@@ -28,6 +28,7 @@ const Header = ({ profilePicture, userName, accountId, email }: { profilePicture
         changeProfilePicture.mutate(formData, {
             onSuccess: (response) => {
                 toast.success(response.message || "Profile picture updated successfully!");
+                setAvatarFile(null);
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {

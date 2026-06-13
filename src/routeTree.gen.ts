@@ -25,6 +25,7 @@ import { Route as DashboardStocksRouteImport } from './routes/_dashboard/stocks'
 import { Route as DashboardStockWithdrawRouteImport } from './routes/_dashboard/stock-withdraw'
 import { Route as DashboardStockDepositRouteImport } from './routes/_dashboard/stock-deposit'
 import { Route as DashboardStakesRouteImport } from './routes/_dashboard/stakes'
+import { Route as DashboardRequestRouteImport } from './routes/_dashboard/request'
 import { Route as DashboardReferralsRouteImport } from './routes/_dashboard/referrals'
 import { Route as DashboardProfileRouteImport } from './routes/_dashboard/profile'
 import { Route as DashboardPortfolioRouteImport } from './routes/_dashboard/portfolio'
@@ -127,6 +128,11 @@ const DashboardStockDepositRoute = DashboardStockDepositRouteImport.update({
 const DashboardStakesRoute = DashboardStakesRouteImport.update({
   id: '/stakes',
   path: '/stakes',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardRequestRoute = DashboardRequestRouteImport.update({
+  id: '/request',
+  path: '/request',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardReferralsRoute = DashboardReferralsRouteImport.update({
@@ -293,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof DashboardPortfolioRoute
   '/profile': typeof DashboardProfileRoute
   '/referrals': typeof DashboardReferralsRoute
+  '/request': typeof DashboardRequestRoute
   '/stakes': typeof DashboardStakesRoute
   '/stock-deposit': typeof DashboardStockDepositRoute
   '/stock-withdraw': typeof DashboardStockWithdrawRoute
@@ -334,6 +341,7 @@ export interface FileRoutesByTo {
   '/portfolio': typeof DashboardPortfolioRoute
   '/profile': typeof DashboardProfileRoute
   '/referrals': typeof DashboardReferralsRoute
+  '/request': typeof DashboardRequestRoute
   '/stakes': typeof DashboardStakesRoute
   '/stock-deposit': typeof DashboardStockDepositRoute
   '/stock-withdraw': typeof DashboardStockWithdrawRoute
@@ -380,6 +388,7 @@ export interface FileRoutesById {
   '/_dashboard/portfolio': typeof DashboardPortfolioRoute
   '/_dashboard/profile': typeof DashboardProfileRoute
   '/_dashboard/referrals': typeof DashboardReferralsRoute
+  '/_dashboard/request': typeof DashboardRequestRoute
   '/_dashboard/stakes': typeof DashboardStakesRoute
   '/_dashboard/stock-deposit': typeof DashboardStockDepositRoute
   '/_dashboard/stock-withdraw': typeof DashboardStockWithdrawRoute
@@ -423,6 +432,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/profile'
     | '/referrals'
+    | '/request'
     | '/stakes'
     | '/stock-deposit'
     | '/stock-withdraw'
@@ -464,6 +474,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/profile'
     | '/referrals'
+    | '/request'
     | '/stakes'
     | '/stock-deposit'
     | '/stock-withdraw'
@@ -509,6 +520,7 @@ export interface FileRouteTypes {
     | '/_dashboard/portfolio'
     | '/_dashboard/profile'
     | '/_dashboard/referrals'
+    | '/_dashboard/request'
     | '/_dashboard/stakes'
     | '/_dashboard/stock-deposit'
     | '/_dashboard/stock-withdraw'
@@ -642,6 +654,13 @@ declare module '@tanstack/react-router' {
       path: '/stakes'
       fullPath: '/stakes'
       preLoaderRoute: typeof DashboardStakesRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/request': {
+      id: '/_dashboard/request'
+      path: '/request'
+      fullPath: '/request'
+      preLoaderRoute: typeof DashboardRequestRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/_dashboard/referrals': {
@@ -900,6 +919,7 @@ interface DashboardRouteRouteChildren {
   DashboardPortfolioRoute: typeof DashboardPortfolioRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardReferralsRoute: typeof DashboardReferralsRoute
+  DashboardRequestRoute: typeof DashboardRequestRoute
   DashboardStakesRoute: typeof DashboardStakesRoute
   DashboardStockDepositRoute: typeof DashboardStockDepositRoute
   DashboardStockWithdrawRoute: typeof DashboardStockWithdrawRoute
@@ -921,6 +941,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardPortfolioRoute: DashboardPortfolioRoute,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardReferralsRoute: DashboardReferralsRoute,
+  DashboardRequestRoute: DashboardRequestRoute,
   DashboardStakesRoute: DashboardStakesRoute,
   DashboardStockDepositRoute: DashboardStockDepositRoute,
   DashboardStockWithdrawRoute: DashboardStockWithdrawRoute,
