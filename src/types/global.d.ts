@@ -220,3 +220,10 @@ declare type NotificationPayload = {
     title: string,
     message: string,
 }
+
+// Update Settings
+declare type SettingsPayload = {
+    sharePrice: number,
+    minShares: number,
+    noWithdrawal: boolean,
+}

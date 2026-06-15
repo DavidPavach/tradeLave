@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-// Services
+// Services, Enums
 import { useAdminRts } from "@/services/queries.service";
+import { PAGE_LIMIT } from "@/enum";
 
 // Components
 import Thread from "./Thread";
@@ -14,9 +15,9 @@ import { Loader2 } from "lucide-react";
 const Index = () => {
 
     const [page, setPage] = useState<number>(1);
-    const { data, isFetching, isLoading, isError, refetch } = useAdminRts(page, 50);
+    const { data, isLoading, isError, refetch } = useAdminRts(page, PAGE_LIMIT);
 
-    if (isFetching || isLoading) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-[80vh]">
                 <Loader2 className="size-6 text-primary animate-spin" />

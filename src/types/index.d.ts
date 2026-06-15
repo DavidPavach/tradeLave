@@ -259,3 +259,38 @@ declare type AdminTx = Transaction & {
 declare type AdminInts = Investment & {
   user: UserBrief;
 }
+
+// Stock Txs
+declare type AdminStockTxs = {
+  _id: string;
+  userId: UserBrief;
+  type: StockTxType;
+  status: StockTxStats;
+  usdAmount: number;
+
+  cryptoSymbol?: 'bitcoin' | 'ethereum' | 'tether trc20' | 'tether erc20';
+  cryptoAmount?: number;
+  walletAddress?: string;
+  hash?: string;
+
+  stockSymbol?: string;
+  shares?: number;
+  pricePerShare?: number;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Stock Purchase Request
+declare type AdminStockPurchase = {
+  createdAt: string;
+  details: Details,
+  hasPaid: boolean;
+  shares: number;
+  status: string;
+  stockSymbol: string;
+  updatedAt: string;
+  usdAmount: number;
+  user: UserBrief;
+  _id: string;
+}

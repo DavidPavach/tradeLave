@@ -2,7 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Icons
-import { Profile2User, ArrangeVertical, Logout, SecurityUser, Notification1, UserTag, BitcoinRefresh, ReceiptText, Bank } from "iconsax-reactjs";
+import { Profile2User, ArrangeVertical, Logout, SecurityUser, Notification1, UserTag, BitcoinRefresh, ReceiptText, Bank, Setting2, Candle } from "iconsax-reactjs";
 
 const NAV_LINKS = [
     { href: "/transactions", icon: ArrangeVertical, label: "Transactions" },
@@ -14,6 +14,9 @@ const NAV_LINKS = [
     { href: "/staff", icon: SecurityUser, label: "Staff" },
     { href: "/notifications", icon: Notification1, label: "Notification" },
     { href: "/adminProfile", icon: UserTag, label: "Profile" },
+    { href: "/stock", icon: Candle, label: "Stock Transactions" },
+    { href: "/requests", icon: Bank, label: "Stock Requests" },
+    { href: "/settings", icon: Setting2, label: "Settings" },
 ];
 
 const BOTTOM_NAV_LINKS = [

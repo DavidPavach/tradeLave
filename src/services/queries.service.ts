@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 // APIs
-import { adminDetailsFn, adminGetAdminFn, adminGetIntsFn, adminGetPlansFn, adminGetUserFn, adminReferralFn, adminTxsFn, adminUserBalanceFn, fetchDashboardValuesFn, fetchPricesFn, fetchRequestsFn, fetchSettingsFn, fetchShareTxsFn, getAllIntsFn, getAllPlansFn, getAllTxsFn, getCoinDetailsFn, getCoinTransactionsFn, getDepositRtsFn, getStockBalanceFn, getStockPricesFn, getUserBalanceFn, getUserDepositRequestsFn, getUserDetailsFn, getUserReferralFn, getUsersFn, getUserTypeTransactionFn, portfolioFn, stockHistoryFn } from "./api.service";
+import { adminDetailsFn, adminGetAdminFn, adminGetIntsFn, adminGetPlansFn, adminGetRequestsFn, adminGetSettingsFn, adminGetStockTxsFn, adminGetUserFn, adminReferralFn, adminTxsFn, adminUserBalanceFn, fetchDashboardValuesFn, fetchPricesFn, fetchRequestsFn, fetchSettingsFn, fetchShareTxsFn, getAllIntsFn, getAllPlansFn, getAllTxsFn, getCoinDetailsFn, getCoinTransactionsFn, getDepositRtsFn, getStockBalanceFn, getStockPricesFn, getUserBalanceFn, getUserDepositRequestsFn, getUserDetailsFn, getUserReferralFn, getUsersFn, getUserTypeTransactionFn, portfolioFn, stockHistoryFn } from "./api.service";
 
 // Get Dashboard Values
 export function useDashboardValues() {
@@ -217,14 +217,13 @@ export function useAdminInts(page: number = 1, limit: number = 50) {
     })
 }
 
-//Get Referrals
+// Get Referrals
 export function useAdminRefs(page: number = 1, limit: number = 50) {
     return useQuery({
         queryKey: [`adminReferrals`, page, limit],
         queryFn: () => adminReferralFn(page, limit)
     })
 }
-
 
 // Get all Admins
 export function useGetAdmins() {
@@ -239,5 +238,29 @@ export function useGetCurrentAdmin() {
     return useQuery({
         queryKey: ["currentAdmin"],
         queryFn: () => adminDetailsFn(),
+    })
+}
+
+// Get Stock Transactions
+export function useGetStockTxs(page: number = 1, limit: number = 50) {
+    return useQuery({
+        queryKey: ["stock-transactions", page, limit],
+        queryFn: () => adminGetStockTxsFn(page, limit),
+    })
+}
+
+// Get Purchase Requests
+export function useGetPurchaseRequests(page: number = 1, limit: number = 50) {
+    return useQuery({
+        queryKey: ["all-purchase-requests", page, limit],
+        queryFn: () => adminGetRequestsFn(page, limit),
+    })
+}
+
+// Get Settings
+export function useGetSettings() {
+    return useQuery({
+        queryKey: ["all-settings"],
+        queryFn: () => adminGetSettingsFn(),
     })
 }

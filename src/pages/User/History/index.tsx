@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-// Hooks
+// Hooks, Enums
 import { useUserAllTxs } from "@/services/queries.service";
+import { PAGE_LIMIT } from "@/enum";
 
 // Components
 import TransactionItem from "@/components/TransactionItem";
@@ -15,7 +16,7 @@ const Index = () => {
     const [page, setPage] = useState(1);
     const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
 
-    const { data, isLoading, isError, refetch } = useUserAllTxs(page, 50);
+    const { data, isLoading, isError, refetch } = useUserAllTxs(page, PAGE_LIMIT);
 
     if (isLoading) {
         return (

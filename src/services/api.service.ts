@@ -393,3 +393,51 @@ export const createNotificationFn = async (data: NotificationPayload) => {
     const response = await axiosAdmin.post(`notification/create`, data);
     return response.data;
 }
+
+// Fetch Stock Txs
+export const adminGetStockTxsFn = async (page?: number, limit?: number) => {
+    const response = await axiosAdmin.get(`stocks/history/all?page=${page}&limit=${limit}`);
+    return response.data;
+}
+
+// Fetch Purchase Requests
+export const adminGetRequestsFn = async (page?: number, limit?: number) => {
+    const response = await axiosAdmin.get(`stock-requests/getAll?page=${page}&limit=${limit}`);
+    return response.data;
+}
+
+// Update Stock Transactions
+export const adminUpdateStockTxFn = async (data: { id: string, status: string }) => {
+    const response = await axiosAdmin.put(`stocks/status`, data);
+    return response.data;
+}
+
+// Update Purchase Request
+export const adminUpdateRequestFn = async (data: FormData) => {
+    const response = await axiosAdmin.patch(`stock-requests/update`, data);
+    return response.data;
+}
+
+// Delete Stock Transaction
+export const adminDeleteStockTxFn = async (id: string) => {
+    const response = await axiosAdmin.delete(`stocks/history/${id}`);
+    return response.data;
+}
+
+// Delete Stock Request
+export const adminDeletePurchaseRequestFn = async (id: string) => {
+    const response = await axiosAdmin.delete(`stock-requests/delete/${id}`);
+    return response.data;
+}
+
+// Admin Get Settings
+export const adminGetSettingsFn = async () => {
+    const response = await axiosAdmin.get(`settings/get`);
+    return response.data;
+}
+
+// Admin Update Settings
+export const adminUpdateSettings = async (data: SettingsPayload) => {
+    const response = await axiosAdmin.put(`settings/update`, data);
+    return response.data;
+}

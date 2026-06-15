@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 // Components
-import Referral from "@/pages/Admin/Referral";
+import StockRequests from "@/pages/Admin/Requests";
 
-export const Route = createFileRoute('/_admin/adminReferral')({
+export const Route = createFileRoute('/_admin/requests')({
   head: () => ({
     meta: [
       {
-        title: `Referral | Trade Lave`,
+        title: `Settings | Trade Lave`,
       },
     ],
   }),
@@ -15,5 +15,5 @@ export const Route = createFileRoute('/_admin/adminReferral')({
 })
 
 function RouteComponent() {
-  return <Referral />
+  return <StockRequests />
 }

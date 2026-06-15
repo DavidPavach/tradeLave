@@ -5,6 +5,7 @@ import { toast } from "react-fox-toast";
 import { usePortfolioBalances } from "@/Hooks/useStockCoins";
 import { useNewStockWithdrawal } from "@/services/mutations.service";
 import { formatCurrency } from "@/utils/format";
+import { useSettings } from "@/services/queries.service";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -16,8 +17,10 @@ import { CircleCheckBig, Loader } from "lucide-react";
 
 const Index = () => {
 
+    const { data } = useSettings();
     const { getAllCoinBalances } = usePortfolioBalances();
 
+    const settings: Settings = data?.data || { noWithdrawal: false };
     const [walletAddress, setWalletAddress] = useState<string>("");
     const [selectedCoin, setSelectedCoin] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
@@ -71,6 +74,7 @@ const Index = () => {
 
     const newWithdrawal = useNewStockWithdrawal();
     const handleWithdrawal = () => {
+        if (settings.noWithdrawal) return toast.error("Withdrawals are temporarily paused. We're working on it — you can still view your balance.")
         if (!coinDetails) return toast.error("Something went wrong kindly restart the process");
         if (parseInt(amount, 10) > coinDetails.value) return toast.error("The entered amount is greater than available balance");
 

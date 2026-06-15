@@ -10,9 +10,9 @@ import Table from "./Table";
 
 const Index = () => {
 
-    const { data, isFetching, isLoading, isError, refetch } = useGetAdmins();
+    const { data, isLoading, isError, refetch } = useGetAdmins();
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-[80vh]">
                 <Loader2 className="size-6 text-primary animate-spin" />

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // API Endpoints
-import { adminCreatePlanFn, adminCreateTxFn, adminDeletePlanFn, adminEditIntsFn, adminUpdateFn, adminUpdatePlanFn, adminUpdateTxFn, adminUpdateUserFn, authAdminFn, buyShareFn, createDepositRequestFn, createNotificationFn, createUserFn, deleteDepositRtFn, deleteReferralFn, deleteTxFn, editDepositRtFn, loginUserFn, newDepositFn, NewInvestmentFn, newRequestFn, newTransactionFn, newWithdrawalFn, passResetVerifyFn, patchDepositDetailsFn, resendVerificationFn, resetPasswordFn, sellShareFn, updateDetailsFn, updateProfilePictureFn, updateRequestFn, userKycFn, verifyPassResetOtpFn, verifyUserFn } from "./api.service";
+import { adminCreatePlanFn, adminCreateTxFn, adminDeletePlanFn, adminDeletePurchaseRequestFn, adminDeleteStockTxFn, adminEditIntsFn, adminUpdateFn, adminUpdatePlanFn, adminUpdateRequestFn, adminUpdateSettings, adminUpdateStockTxFn, adminUpdateTxFn, adminUpdateUserFn, authAdminFn, buyShareFn, createDepositRequestFn, createNotificationFn, createUserFn, deleteDepositRtFn, deleteReferralFn, deleteTxFn, editDepositRtFn, loginUserFn, newDepositFn, NewInvestmentFn, newRequestFn, newTransactionFn, newWithdrawalFn, passResetVerifyFn, patchDepositDetailsFn, resendVerificationFn, resetPasswordFn, sellShareFn, updateDetailsFn, updateProfilePictureFn, updateRequestFn, userKycFn, verifyPassResetOtpFn, verifyUserFn } from "./api.service";
 
 //Create New Users
 export function useRegisterUser() {
@@ -273,7 +273,7 @@ export function useUpdateRequest() {
 
     const queryClient = useQueryClient();
     return useMutation({
-         mutationFn: (data: FormData) => updateRequestFn(data),
+        mutationFn: (data: FormData) => updateRequestFn(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['purchase-requests'] });
         },
@@ -494,6 +494,81 @@ export function useAdminNotification() {
         mutationFn: (data: NotificationPayload) => createNotificationFn(data),
         onError: (error) => {
             console.error("Create Notification:", error);
+        }
+    })
+}
+
+// Update Stock Transaction
+export function useAdminUpdateStockTx() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: { id: string, status: string }) => adminUpdateStockTxFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['stock-transactions'] });
+        },
+        onError: (error) => {
+            console.error("Failed to update stock transaction:", error);
+        }
+    })
+}
+
+// Delete Stock Transaction
+export function useAdminDeleteStockTx() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: string) => adminDeleteStockTxFn(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['stock-transactions'] });
+        },
+        onError: (error) => {
+            console.error("Failed to delete stock transaction:", error);
+        }
+    })
+}
+
+// Update Stock Request Purchase
+export function useAdminUpdateRequest() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: FormData) => adminUpdateRequestFn(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['all-purchase-requests'] });
+        },
+        onError: (error) => {
+            console.error("Stock Purchase Request Update failed:", error);
+        }
+    })
+}
+
+// Delete Stock Request Purchase
+export function useAdminDeletePurchase() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: string) => adminDeletePurchaseRequestFn(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['all-purchase-requests'] });
+        },
+        onError: (error) => {
+            console.error("Failed to delete stock purchase request:", error);
+        }
+    })
+}
+
+// Update Settings
+export function useAdminUpdateSettings() {
+
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: SettingsPayload) => adminUpdateSettings(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['all-settings'] });
+        },
+        onError: (error) => {
+            console.error("Failed to update settings:", error);
         }
     })
 }

@@ -67,7 +67,7 @@ const Form = ({ prices, onClose }: { prices: Record<string, number>, onClose: ()
             </header>
 
             <Label className="text-muted-foreground">Select Stock</Label>
-            <div className="gap-3 grid grid-cols-1 md:grid-cols-2">
+            <div className="gap-3 grid grid-cols-1 md:grid-cols-2 max-h-96 overflow-y-auto hide-scrollbar">
                 {Object.entries(stockMeta).map(([symbol, meta]) => {
                     const selected = selectedStock === symbol;
                     const price = modified[symbol] ?? 0;

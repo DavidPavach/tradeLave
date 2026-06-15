@@ -46,7 +46,10 @@ import { Route as AuthForgotRouteImport } from './routes/_auth/forgot'
 import { Route as AuthCreateRouteImport } from './routes/_auth/create'
 import { Route as AdminUsersRouteImport } from './routes/_admin/users'
 import { Route as AdminTransactionsRouteImport } from './routes/_admin/transactions'
+import { Route as AdminStockRouteImport } from './routes/_admin/stock'
 import { Route as AdminStaffRouteImport } from './routes/_admin/staff'
+import { Route as AdminSettingsRouteImport } from './routes/_admin/settings'
+import { Route as AdminRequestsRouteImport } from './routes/_admin/requests'
 import { Route as AdminPlansRouteImport } from './routes/_admin/plans'
 import { Route as AdminNotificationsRouteImport } from './routes/_admin/notifications'
 import { Route as AdminInvestmentsRouteImport } from './routes/_admin/investments'
@@ -235,9 +238,24 @@ const AdminTransactionsRoute = AdminTransactionsRouteImport.update({
   path: '/transactions',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminStockRoute = AdminStockRouteImport.update({
+  id: '/stock',
+  path: '/stock',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminStaffRoute = AdminStaffRouteImport.update({
   id: '/staff',
   path: '/staff',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AdminRequestsRoute = AdminRequestsRouteImport.update({
+  id: '/requests',
+  path: '/requests',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 const AdminPlansRoute = AdminPlansRouteImport.update({
@@ -278,7 +296,10 @@ export interface FileRoutesByFullPath {
   '/investments': typeof AdminInvestmentsRoute
   '/notifications': typeof AdminNotificationsRoute
   '/plans': typeof AdminPlansRoute
+  '/requests': typeof AdminRequestsRoute
+  '/settings': typeof AdminSettingsRoute
   '/staff': typeof AdminStaffRoute
+  '/stock': typeof AdminStockRoute
   '/transactions': typeof AdminTransactionsRoute
   '/users': typeof AdminUsersRoute
   '/create': typeof AuthCreateRoute
@@ -320,7 +341,10 @@ export interface FileRoutesByTo {
   '/investments': typeof AdminInvestmentsRoute
   '/notifications': typeof AdminNotificationsRoute
   '/plans': typeof AdminPlansRoute
+  '/requests': typeof AdminRequestsRoute
+  '/settings': typeof AdminSettingsRoute
   '/staff': typeof AdminStaffRoute
+  '/stock': typeof AdminStockRoute
   '/transactions': typeof AdminTransactionsRoute
   '/users': typeof AdminUsersRoute
   '/create': typeof AuthCreateRoute
@@ -367,7 +391,10 @@ export interface FileRoutesById {
   '/_admin/investments': typeof AdminInvestmentsRoute
   '/_admin/notifications': typeof AdminNotificationsRoute
   '/_admin/plans': typeof AdminPlansRoute
+  '/_admin/requests': typeof AdminRequestsRoute
+  '/_admin/settings': typeof AdminSettingsRoute
   '/_admin/staff': typeof AdminStaffRoute
+  '/_admin/stock': typeof AdminStockRoute
   '/_admin/transactions': typeof AdminTransactionsRoute
   '/_admin/users': typeof AdminUsersRoute
   '/_auth/create': typeof AuthCreateRoute
@@ -411,7 +438,10 @@ export interface FileRouteTypes {
     | '/investments'
     | '/notifications'
     | '/plans'
+    | '/requests'
+    | '/settings'
     | '/staff'
+    | '/stock'
     | '/transactions'
     | '/users'
     | '/create'
@@ -453,7 +483,10 @@ export interface FileRouteTypes {
     | '/investments'
     | '/notifications'
     | '/plans'
+    | '/requests'
+    | '/settings'
     | '/staff'
+    | '/stock'
     | '/transactions'
     | '/users'
     | '/create'
@@ -499,7 +532,10 @@ export interface FileRouteTypes {
     | '/_admin/investments'
     | '/_admin/notifications'
     | '/_admin/plans'
+    | '/_admin/requests'
+    | '/_admin/settings'
     | '/_admin/staff'
+    | '/_admin/stock'
     | '/_admin/transactions'
     | '/_admin/users'
     | '/_auth/create'
@@ -803,11 +839,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTransactionsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/_admin/stock': {
+      id: '/_admin/stock'
+      path: '/stock'
+      fullPath: '/stock'
+      preLoaderRoute: typeof AdminStockRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/_admin/staff': {
       id: '/_admin/staff'
       path: '/staff'
       fullPath: '/staff'
       preLoaderRoute: typeof AdminStaffRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/settings': {
+      id: '/_admin/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/_admin/requests': {
+      id: '/_admin/requests'
+      path: '/requests'
+      fullPath: '/requests'
+      preLoaderRoute: typeof AdminRequestsRouteImport
       parentRoute: typeof AdminRouteRoute
     }
     '/_admin/plans': {
@@ -862,7 +919,10 @@ interface AdminRouteRouteChildren {
   AdminInvestmentsRoute: typeof AdminInvestmentsRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
   AdminPlansRoute: typeof AdminPlansRoute
+  AdminRequestsRoute: typeof AdminRequestsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminStaffRoute: typeof AdminStaffRoute
+  AdminStockRoute: typeof AdminStockRoute
   AdminTransactionsRoute: typeof AdminTransactionsRoute
   AdminUsersRoute: typeof AdminUsersRoute
 }
@@ -874,7 +934,10 @@ const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminInvestmentsRoute: AdminInvestmentsRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
   AdminPlansRoute: AdminPlansRoute,
+  AdminRequestsRoute: AdminRequestsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminStaffRoute: AdminStaffRoute,
+  AdminStockRoute: AdminStockRoute,
   AdminTransactionsRoute: AdminTransactionsRoute,
   AdminUsersRoute: AdminUsersRoute,
 }

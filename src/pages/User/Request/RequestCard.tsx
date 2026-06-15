@@ -33,10 +33,10 @@ function StatusBadge({ status }: { status: string }) {
 function DetailEntry({ role, message }: { role: "admin" | "user"; message: { message: string; at: string; file?: string; } }) {
 
     const RoleIcon = role === "admin" ? ShieldSecurity : TagUser;
-    const roleColour = role === "admin" ? "text-violet-400" : "text-primary";
+    const roleColour = role === "admin" ? "text-secondary" : "text-primary";
 
     return (
-        <div className={`flex gap-x-2 ${role === "user" ? "bg-card" : "bg-primary/20"}  p-4 border-border/20 last:border-0 border-b rounded-md`}>
+        <div className={`flex gap-x-2 ${role === "user" ? "bg-primary/20" : "bg-secondary/20"} w-[90%] md:w-[80%] xl:w-[70%] p-4 border-border/20 last:border-0 border-b rounded-md`}>
             <div className={cn("mt-0.5 shrink-0", roleColour)}>
                 <RoleIcon className="size-4 md:size-3.5 xl:size-4" />
             </div>
@@ -44,7 +44,7 @@ function DetailEntry({ role, message }: { role: "admin" | "user"; message: { mes
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                     <span className={cn("font-semibold text-xs capitalize", roleColour)}>
-                        {role}
+                        {role === "user" ? "Me" : role}
                     </span>
 
                     <span className="text-[9px] text-muted-foreground md:text-[10px] xl:text-[11px]">
@@ -140,9 +140,9 @@ export default function RequestCard({ request }: { request: StockRequest }) {
 
             {/* Expanded details */}
             {expanded && !editing && (
-                <div className="px-5 py-4 border-border/30 border-t">
+                <div className="p-2 md:p-3 xl:p-4 border-border/30 border-t">
                     {!hasDetails ? (
-                        <p className="py-4 text-muted-foreground text-sm text-center">
+                        <p className="py-4 text-[11px] text-muted-foreground md:text-xs xl:text-sm text-center">
                             No detail notes yet.
                         </p>
                     ) : (
@@ -152,14 +152,17 @@ export default function RequestCard({ request }: { request: StockRequest }) {
                             </p>
 
                             {/* Admin Messages */}
-                            {request.details?.admin?.map((message, index) => (
-                                <DetailEntry key={`admin-${index}`} role="admin" message={message} />
-                            ))}
+                            <section className="flex flex-col gap-y-2 my-2">
+                                {request.details?.admin?.map((message, index) => (
+                                    <DetailEntry key={`admin-${index}`} role="admin" message={message} />
+                                ))}
+                            </section>
 
-                            {/* User Messages */}
-                            {request.details?.user?.map((message, index) => (
-                                <DetailEntry key={`user-${index}`} role="user" message={message} />
-                            ))}
+                            <section className="flex flex-col items-end gap-y-2 my-2">
+                                {request.details?.user?.map((message, index) => (
+                                    <DetailEntry key={`user-${index}`} role="user" message={message} />
+                                ))}
+                            </section>
                         </div>
                     )}
                 </div>

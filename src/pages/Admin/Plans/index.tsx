@@ -15,9 +15,9 @@ import Form from "./Form";
 const Index = () => {
 
     const [open, setOpen] = useState<boolean>(false);
-    const { data, isFetching, isLoading, isError, refetch } = useAdminPlans();
+    const { data, isLoading, isError, refetch } = useAdminPlans();
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-[80vh]">
                 <Loader2 className="size-6 text-primary animate-spin" />

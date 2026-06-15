@@ -87,3 +87,6 @@ export const stockPaymentMeta: Record<string, { qrCode: string, walletAddress: s
   ethereum: { qrCode: "/stockWallet/ethereum.jpeg", walletAddress: "0x3e3eBA0B763d8D1307b34864B5Da3542d7B746bd" },
   bitcoin: { qrCode: "/stockWallet/bitcoin.jpeg", walletAddress: "bc1qnzny4mswfalyesrv2czjjejy774w9mmlnta7mh" }
 }
+
+// Page Limit
+export const PAGE_LIMIT = 50

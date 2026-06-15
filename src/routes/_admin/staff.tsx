@@ -4,6 +4,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import Staff from "@/pages/Admin/Staff";
 
 export const Route = createFileRoute('/_admin/staff')({
+  head: () => ({
+    meta: [
+      {
+        title: `Staff | Trade Lave`,
+      },
+    ],
+  }),
   component: RouteComponent,
 })
 

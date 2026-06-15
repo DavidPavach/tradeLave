@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Route } from "@/routes/_admin/users";
 
-// Hooks
+// Hooks, Enums
 import { useAdminUsers } from "@/services/queries.service";
+import { PAGE_LIMIT } from "@/enum";
 
 // Components
 import { ErrorScreen } from "@/components/ErrorComponents";
@@ -16,7 +17,7 @@ import { Loader2 } from "lucide-react";
 const Index = () => {
 
     const [page, setPage] = useState(1);
-    const { data, isLoading, isError, refetch } = useAdminUsers(page, 50);
+    const { data, isLoading, isError, refetch } = useAdminUsers(page, PAGE_LIMIT);
     const search = Route.useSearch();
     const accountId = search.profile;
 

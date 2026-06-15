@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-// Services
+// Services, Enums
 import { useAdminRefs } from "@/services/queries.service";
+import { PAGE_LIMIT } from "@/enum";
 
 // Components
 import { ErrorScreen } from "@/components/ErrorComponents";
@@ -14,9 +15,9 @@ import Pagination from "@/components/Pagination";
 const Index = () => {
 
     const [page, setPage] = useState<number>(1);
-    const { data, isFetching, isLoading, isError, refetch } = useAdminRefs(page, 50);
+    const { data, isLoading, isError, refetch } = useAdminRefs(page, PAGE_LIMIT);
 
-    if (isLoading || isFetching) {
+    if (isLoading) {
         return (
             <div className="flex flex-col justify-center items-center h-[80vh]">
                 <Loader2 className="size-6 text-primary animate-spin" />

@@ -11,7 +11,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 // Icons
 import { X, LogOut, ChevronDown } from 'lucide-react';
-import { Category, UserTag, Notification1, Profile2User, SecurityUser } from "iconsax-reactjs";
+import { Category, UserTag, Notification1, Profile2User, SecurityUser, Setting2, Candle, Bank } from "iconsax-reactjs";
 
 
 const AdminHeader = () => {
@@ -77,11 +77,18 @@ const AdminHeader = () => {
             case "adminProfile":
                 navigate({ to: "/adminProfile" });
                 break;
+            case "settings":
+                navigate({ to: "/settings" });
+                break;
+            case "stock":
+                navigate({ to: "/stock" });
+                break;
+            case "requests":
+                navigate({ to: "/requests" });
+                break;
             case "logout":
                 handleLogOut();
                 break;
-            default:
-                break
         }
     }
 
@@ -109,6 +116,24 @@ const AdminHeader = () => {
             label: "Your Profile",
             icon: <UserTag size={18} />,
             action: () => handleMenuClick("adminProfile"),
+        },
+        {
+            id: "stock",
+            label: "Stock Transactions",
+            icon: <Candle size={18} />,
+            action: () => handleMenuClick("stock"),
+        },
+        {
+            id: "requests",
+            label: "Stock Requests",
+            icon: <Bank size={18} />,
+            action: () => handleMenuClick("requests"),
+        },
+        {
+            id: "settings",
+            label: "Settings",
+            icon: <Setting2 size={18} />,
+            action: () => handleMenuClick("settings"),
         },
         {
             id: "logout",
@@ -139,7 +164,7 @@ const AdminHeader = () => {
 
                     <AnimatePresence>
                         {isDropdownOpen && (
-                            <motion.div ref={dropdownRef} initial={{ opacity: 0, scale: 0.95, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: -10 }} transition={{ duration: 0.2 }} className="top-full right-0 z-10 absolute bg-card shadow-2xl mt-2 py-2 border border-border rounded-xl w-56 text-card-foreground">
+                            <motion.div ref={dropdownRef} initial={{ opacity: 0, scale: 0.95, y: -10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: -10 }} transition={{ duration: 0.2 }} className="top-full right-0 z-20 absolute bg-card shadow-2xl mt-2 py-2 border border-border rounded-xl w-56 text-card-foreground">
                                 {menuItems.map((item, index) => (
                                     <motion.button key={item.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2, delay: index * 0.05 }} onClick={item.action}
                                         className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors cursor-pointer ${item.variant === "danger" ? "text-destructive hover:bg-red-50" : "text-card-foreground hover:bg-background"}`}>

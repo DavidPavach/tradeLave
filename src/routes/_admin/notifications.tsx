@@ -4,6 +4,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import Notification from "@/pages/Admin/Notifications";
 
 export const Route = createFileRoute('/_admin/notifications')({
+  head: () => ({
+    meta: [
+      {
+        title: `Notifications | Trade Lave`,
+      },
+    ],
+  }),
   component: RouteComponent,
 })
 

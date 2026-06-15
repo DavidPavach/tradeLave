@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Route } from "@/routes/_dashboard/coin";
 
-// Hooks
+// Hooks, Enums
 import { useUserCoinTransactions } from "@/services/queries.service";
+import { PAGE_LIMIT } from "@/enum";
 
 // Components
 import TransactionItem from "@/components/TransactionItem";
@@ -17,7 +18,7 @@ const History = () => {
     const [page, setPage] = useState(1);
     const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
 
-    const { data, isFetching, isLoading, isError, refetch } = useUserCoinTransactions(coin, page, 50);
+    const { data, isFetching, isLoading, isError, refetch } = useUserCoinTransactions(coin, page, PAGE_LIMIT);
 
     if (isLoading || isFetching) {
         return (
