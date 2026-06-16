@@ -1,10 +1,4 @@
-import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { useNavigate } from "@tanstack/react-router";
-import { toast } from "react-fox-toast";
-
-// Libs
-import { getAccessToken, getId } from "@/lib/token";
 
 //Components
 import Form from "./Form";
@@ -14,21 +8,6 @@ import logo from "/logo.png";
 
 const Index = () => {
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const accessToken = getAccessToken();
-        const id = getId();
-        const tokensPresent = accessToken && id;
-
-        // Login if tokens are present
-        if (tokensPresent) {
-            toast.info("You are already logged in, taking you to your dashboard...");
-            setTimeout(() => {
-                navigate({ to: '/dashboard' });
-            }, 3000);
-        }
-    })
 
     return (
         <main className="z-[5] relative drop-shadow-md p-4 md:p-6 xl:p-8 rounded-2xl w-full max-w-xl">

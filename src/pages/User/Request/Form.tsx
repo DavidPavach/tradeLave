@@ -66,8 +66,8 @@ const Form = ({ prices, onClose }: { prices: Record<string, number>, onClose: ()
                 </p>
             </header>
 
-            <Label className="text-muted-foreground">Select Stock</Label>
-            <div className="gap-3 grid grid-cols-1 md:grid-cols-2 max-h-96 overflow-y-auto hide-scrollbar">
+            <Label className="mb-1 text-muted-foreground">Select Stock</Label>
+            <div className="gap-3 grid grid-cols-1 md:grid-cols-2 max-h-48 overflow-y-auto hide-scrollbar">
                 {Object.entries(stockMeta).map(([symbol, meta]) => {
                     const selected = selectedStock === symbol;
                     const price = modified[symbol] ?? 0;
@@ -135,19 +135,19 @@ const Form = ({ prices, onClose }: { prices: Record<string, number>, onClose: ()
                     placeholder="0.00"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="bg-muted/30 border-border/50 h-10 md:h-11 xl:h-12"
+                    className="bg-muted/30 border-border/50 h-10 md:h-11 xl:h-12 montserrat"
                 />
                 {amount.trim() && (
                     <p className="text-[11px] md:text-xs xl:text-sm">Total Amount(USD): <span className="text-primary montserrat">{formatCurrency(totalUSD)}</span></p>
                 )}
             </div>
             {/* Actions */}
-            <div className="flex gap-x-5 mt-10">
-                <Button variant="outline" className="border-border/50 w-1/2" onClick={onClose} disabled={newRequest.isPending}>
+            <div className="flex justify-between mt-10">
+                <Button variant="outline" className="border-border/50 w-[48%]" onClick={onClose} disabled={newRequest.isPending}>
                     Cancel
                 </Button>
                 <Button
-                    className={"bg-orange-600 hover:bg-orange-500 text-white w-1/2"}
+                    className={"bg-orange-600 hover:bg-orange-500 text-white w-[48%]"}
                     disabled={newRequest.isPending}
                     onClick={handleRequest}
                 >

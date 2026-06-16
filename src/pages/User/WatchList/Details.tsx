@@ -3,8 +3,8 @@ import { stockMeta } from "@/enum";
 import { formatCurrency, sumTxs } from "@/utils/format";
 
 // Components
-import SpacexTicker from "./Ticker";
 import HistoryItem from "@/components/HistoryItem";
+import StockTradingView from "../Portfolio/TradingView";
 
 // Icons
 import { Receipt2 } from "iconsax-reactjs";
@@ -67,7 +67,7 @@ const Details = ({ price, txs }: { price: number, txs: StockTxs[] }) => {
                         <h2 className="font-semibold text-[11px] md:text-xs xl:text-sm capitalize montserrat">{metaDetails.name} Price Chart</h2>
                     </div>
                     <div style={{ height: 420, padding: "1rem" }}>
-                        <SpacexTicker price={price} />
+                        <StockTradingView symbol={"SPCX"} />
                     </div>
                 </div>
 

@@ -31,7 +31,7 @@ const StatCard = ({ title, amount, subtitle, icon, isLoading, isError }: StatCar
                 </div>
 
                 {isLoading ? <Loader className="size-5 md:size-6 xl:size-7 text-muted animate-spin" />
-                    : isError ? <Danger variant="Bold" className="size-5 md:size-6 xl:size-7 text-destructive" />
+                    : isError ? <Danger variant="Bold" className="size-5 md:size-6 xl:size-7 text-orange-500" />
                         : icon
                 }
 

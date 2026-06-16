@@ -25,7 +25,7 @@ function StatusBadge({ status }: { status: string }) {
     const Icon = cfg.icon;
     return (
         <span className={cn("inline-flex items-center gap-1 px-2.5 py-1 border rounded-full font-semibold text-[11px] md:text-xs xl:text-sm", cfg.class)}>
-            <Icon className="size-3 md:size-3.5 xl:size-4" /> {cfg.label}
+            <Icon className="size-3 md:size-3.5 xl:size-4" /> <span className="hidden sm:block">{cfg.label}</span>
         </span>
     );
 }
