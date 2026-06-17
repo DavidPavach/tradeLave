@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-fox-toast";
 
-// Hooks
+// Hooks and Utils
 import { useNewTransaction } from "@/services/mutations.service";
 import { useCoinDetails } from "@/Hooks/usePrices";
+import { formatCurrency } from "@/utils/format";
 
 // Components
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -99,10 +100,10 @@ export default function Form() {
         if (coinDetails && formData.amount) {
             const inputAmount = parseFloat(formData.amount);
             const coinPrice = parseFloat((coinDetails.price).toFixed(2));
-            const requestedCoinAmount = inputAmount / coinPrice;
+            const requestedUSD = inputAmount * coinPrice;
 
-            if (coinDetails.userBalance < requestedCoinAmount) {
-                errors.amount = `Amount exceeds available balance ${coinDetails.usdEquiv}.`;
+            if (coinDetails.usdEquiv < requestedUSD || coinDetails.userBalance < inputAmount) {
+                errors.amount = `Amount exceeds available balance ${coinDetails.userBalance}: ${formatCurrency(coinDetails.usdEquiv)}.`;
             }
         }
 
@@ -129,14 +130,15 @@ export default function Form() {
         }
 
         const inputAmount = parseFloat(formData.amount);
-        const roundedPrice = parseFloat(coinDetails.price.toFixed(2));
+        const coinPrice = parseFloat((coinDetails.price).toFixed(2));
+        const requestedUSD = inputAmount * coinPrice;
 
         const submissionData = {
             ...formData,
             transactionType: "withdrawal" as TransactionType,
             coin: formData.coin as TransactionCoin,
-            coinAmount: Number((inputAmount / roundedPrice).toFixed(2)),
-            amount: inputAmount
+            coinAmount: inputAmount,
+            amount: requestedUSD
         };
 
         newWithdrawal.mutate(submissionData, {
@@ -209,6 +211,11 @@ export default function Form() {
                                         <AlertCircle className="size-4" />
                                         {validationErrors.amount}
                                     </div>
+                                )}
+                                {formData.coin.trim() && (
+                                    <p className="text-[10px] md:text-[11px] xl:text-xs">
+                                        Balance: <span className="text-primary">{coinDetails.userBalance} {formatCurrency(coinDetails.usdEquiv)}</span>
+                                    </p>
                                 )}
                             </div>
 
