@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // Enums and Utils
 import { stockMeta } from "@/enum";
 import { formatCurrency, sumTxs } from "@/utils/format";
@@ -5,12 +7,16 @@ import { formatCurrency, sumTxs } from "@/utils/format";
 // Components
 import HistoryItem from "@/components/HistoryItem";
 import StockTradingView from "../Portfolio/TradingView";
+import Form from "./Form";
+import { Overlay } from "@/components/Overlay";
+import { Button } from "@/components/ui/button";
 
 // Icons
-import { Receipt2 } from "iconsax-reactjs";
+import { Receipt2, ShoppingCart } from "iconsax-reactjs";
 
 const Details = ({ price, txs }: { price: number, txs: StockTxs[] }) => {
 
+    const [buy, setBuy] = useState<boolean>(false);
     const metaDetails = stockMeta["SPCX"];
 
     // Constants
@@ -21,9 +27,16 @@ const Details = ({ price, txs }: { price: number, txs: StockTxs[] }) => {
     const pnlPct = totalUsd > 0 ? (pnl / totalUsd) * 100 : 0;
     const isPos = pnl >= 0;
 
+    const toggleBuy = () => setBuy((prev) => !prev);
+
     return (
-        <main>
-            <header className="mb-8">
+        <>
+            {buy && (
+                <Overlay open={buy} onClose={toggleBuy}>
+                    <Form price={price} onClose={toggleBuy} />
+                </Overlay>
+            )}
+            <header className="justify-between mb-8">
                 <div className="flex gap-4">
                     <img src={metaDetails.logo} alt={`${metaDetails.name} logo`} className="mt-1 rounded-md size-6 md:size-7 xl:size-8" />
                     <div>
@@ -38,6 +51,9 @@ const Details = ({ price, txs }: { price: number, txs: StockTxs[] }) => {
                         <p className="text-[11px] text-muted-foreground md:text-xs xl:text-sm">{metaDetails.name}</p>
                     </div>
                 </div>
+                <Button onClick={toggleBuy} className="gap-2 bg-primary hover:bg-primary/90 px-6 text-primary-foreground">
+                    <ShoppingCart className="size-4" /> Buy
+                </Button>
             </header>
 
             {/* Stats bar */}
@@ -104,7 +120,7 @@ const Details = ({ price, txs }: { price: number, txs: StockTxs[] }) => {
                     </div>
                 </div>
             </section>
-        </main>
+        </>
     );
 }
 
