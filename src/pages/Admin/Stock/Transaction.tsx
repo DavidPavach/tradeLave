@@ -8,7 +8,7 @@ import { useAdminUpdateStockTx } from "@/services/mutations.service";
 import { useAdminDeleteStockTx } from "@/services/mutations.service";
 
 // Icons
-import { DirectboxReceive, DirectboxSend, type Icon, Lock, TrendUp, ShoppingCart, BitcoinConvert, CloseSquare, Clock, CloseCircle, TickSquare, TickCircle, ArrowUp3, ArrowDown3, Trash } from "iconsax-reactjs";
+import { DirectboxReceive, DirectboxSend, type Icon, TrendUp, ShoppingCart, BitcoinConvert, CloseSquare, Clock, TickSquare, TickCircle, ArrowUp3, ArrowDown3, Trash } from "iconsax-reactjs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { CircleCheckBig, Loader2 } from "lucide-react";
@@ -27,14 +27,11 @@ const STATUS_CONFIG: Record<string, { label: string, icon: Icon, class: string }
     APPROVED: { label: "Approved", icon: TickCircle, class: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
     COMPLETED: { label: "Completed", icon: TickSquare, class: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
     REJECTED: { label: "Rejected", icon: CloseSquare, class: "bg-red-500/10 text-red-400 border-red-500/20" },
-    SUCCESSFUL: { label: "Successful", icon: TickCircle, class: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
-    FAILED: { label: "Failed", icon: CloseCircle, class: "bg-destructive/10 text-destructive border-destructive/20" },
-    CLOSED: { label: "Closed", icon: Lock, class: "bg-muted text-muted-foreground border-border/40" },
 };
 
 const EDITABLE_STATUSES = [
     { value: "PENDING", label: "Pending" },
-    { value: "SUCCESSFUL", label: "Successful" },
+    { value: "APPROVED", label: "Approved" },
     { value: "FAILED", label: "Failed" },
     { value: "CLOSED", label: "Closed" },
 ]
