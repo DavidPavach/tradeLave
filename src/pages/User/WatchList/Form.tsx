@@ -53,7 +53,7 @@ const Form = ({ price, onClose }: { price: number, onClose: () => void }) => {
     }
 
     return (
-        <main>
+        <main className="max-h-96 overflow-y-auto hide-scrollbar">
             {/* Header */}
             <header className="flex gap-x-3">
                 <img src={metaDetails.logo} alt={`${metaDetails.name} logo`} className="size-6 md:size-7 xl:size-8 arounded-md" />
